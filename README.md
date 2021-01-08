@@ -10,7 +10,7 @@ cd your-project
 npm install
 ```
 
-### Based on [quar: fundamental Typescript boilerplate](https://github.com/AtomicBuilders/quark/)
+#### Based on [_quark_: fundamental Typescript boilerplate](https://github.com/AtomicBuilders/quark/)
 
 ## 🎯 Motivation
 

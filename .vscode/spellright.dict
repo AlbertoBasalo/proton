@@ -5,3 +5,5 @@ esm
 tsc
 dist
 --ext
+dotenv
+winston

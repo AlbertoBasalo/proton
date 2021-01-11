@@ -1,10 +1,17 @@
-export { sayHello, sum };
+import { startServer } from './server';
+import { rootConfig } from './util/config';
+import { logger } from './util/logger';
 
-function sayHello(yourName: string): void {
-  console.log(`Hello ${yourName}`);
+async function init() {
+  try {
+    logger.dump(rootConfig);
+    const server = await startServer(rootConfig);
+    logger.http(`Server started ${JSON.stringify(server.address())}`);
+  } catch (error) {
+    logger.fatal(error);
+  }
 }
-function sum(a: number, b: number): number {
-  return a + b;
-}
-const myName = 'Quark';
-sayHello(myName);
+process.on('uncaughtException', (error: Error) => {
+  logger.fatal(error);
+});
+init();

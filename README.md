@@ -1,6 +1,6 @@
 # proton
 
-PROfessional Typescript bOilerplate Node
+PROfessional Typescript bOilerplate with Node and express
 
 > Clone, fork or use as a template repository for creating your next **Node TypeScript** project.
 
@@ -14,11 +14,21 @@ npm install
 
 ## 🎯 Motivation
 
-Create a Node application, but not from scratch.
+Create an Express application, but not from scratch.
 
-Have a template to create _TypeScript_ repositories with a project already configurated.
+Have a template to create _TypeScript_ APIs with an application already configurated.
 
 A **boilerplate** ready to apply clean code techniques and testing.
+
+
+## 🎩 Features
+
+### 🏁 Setup
+
+#### Configuration
+#### Logging
+#### Error Handling
+
 
 ## ⚙ Workflows
 

@@ -32,6 +32,7 @@
     "updates": "ncu -u"
   },
   "devDependencies": {
+    "@types/express": "^4.17.9",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.20",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
@@ -48,6 +49,7 @@
     "ts-node": "^9.1.1"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "typescript": "^4.1.3"
   }
 }

@@ -1,10 +1,11 @@
-export { sayHello, sum };
-
-function sayHello(yourName: string): void {
-  console.log(`Hello ${yourName}`);
+import { startServer } from './server';
+async function init() {
+  try {
+    const server = await startServer();
+    console.info(`Server started ${JSON.stringify(server.address())}`);
+  } catch (error) {
+    console.error(`Error: ${error}`);
+    process.exit(1);
+  }
 }
-function sum(a: number, b: number): number {
-  return a + b;
-}
-const myName = 'Quark';
-sayHello(myName);
+init();

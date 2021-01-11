@@ -1,12 +1,11 @@
 import http from 'http';
 import { createApp } from './app';
 
-const port = normalizePort(process.env.PORT || '3000');
-
-export async function startServer(): Promise<http.Server> {
+export async function startServer(environmentPort: number | string): Promise<http.Server> {
   const app = await createApp();
   const server = http.createServer(app);
   const serverDomain = process.env.SERVER_DOMAIN || 'http://localhost';
+  const port = normalizePort(environmentPort);
   server.listen(port);
   console.info(`Listening on port: ${serverDomain}:${port}`);
   return server;

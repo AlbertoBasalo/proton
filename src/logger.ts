@@ -1,20 +1,12 @@
 import winston from 'winston';
 import { APP_NAME, LOGGER_LEVEL, LOGGER_SILENT, LOGGER_TIMESTAMP } from './config';
 
-// npm debug levels (winston default):
-// {
-//   error: 0,
-//   warn: 1,
-//   info: 2,
-//   http: 3
-//   verbose: 4,
-//   debug: 5,
-//   silly: 6
-// }
+// type LogLevel = 'silent' | 'error' | 'warn' | 'info' | 'http' | 'verbose' | 'debug' | 'silly';
 
 const prettyJson = winston.format.printf(info => {
   if (info.message.constructor === Object) {
-    info.message = JSON.stringify(info.message, null, 4);
+    const spaces = 2;
+    info.message = JSON.stringify(info.message, null, spaces);
   }
   return `${info.timestamp} ${info.label || '-'} ${info.level}: ${info.message}`;
 });

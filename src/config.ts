@@ -9,10 +9,10 @@ if (fs.existsSync('.env')) {
     '.env file not found see .env.example file to supply config your environment variables. Using default values instead. '
   );
 }
+const DEFAULT_PORT = 3000;
 export const ENVIRONMENT = process.env.NODE_ENV;
 export const IS_PRODUCTION = ENVIRONMENT === 'production';
-const DEAFAULT_PORT = 3000;
-export const PORT = process.env.PORT || DEAFAULT_PORT;
+export const PORT = process.env.PORT || DEFAULT_PORT;
 export const APP_NAME = process.env.APP_NAME || 'proton';
 export const LOGGER_SILENT = process.env.LOGGER_SILENT === 'true' || false;
 export const LOGGER_LEVEL = process.env.LOGGER_LEVEL || 'info';

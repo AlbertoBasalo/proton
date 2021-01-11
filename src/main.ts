@@ -1,22 +1,17 @@
-import { PORT } from './config';
-import { errorHandler } from './error-handler';
-import logger from './logger';
 import { startServer } from './server';
+import { rootConfig } from './util/config';
+import { logger } from './util/logger';
 
 async function init() {
   try {
-    const server = await startServer(PORT);
+    logger.dump(rootConfig);
+    const server = await startServer(rootConfig);
     logger.http(`Server started ${JSON.stringify(server.address())}`);
   } catch (error) {
-    errorHandler.handleError(error);
+    logger.fatal(error);
   }
 }
 process.on('uncaughtException', (error: Error) => {
-  errorHandler.handleError(error);
+  logger.fatal(error);
 });
 init();
-
-// ToDo:
-// revisar y comitear error logger
-// valorar uso de import errorHandler from "errorhandler";
-// mejorar quark configuración y log

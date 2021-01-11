@@ -6,3 +6,4 @@ tsc
 dist
 --ext
 dotenv
+winston

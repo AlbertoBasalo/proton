@@ -1,5 +1,6 @@
 import http from 'http';
 import { createApp } from './app';
+import logger from './logger';
 
 export async function startServer(environmentPort: number | string): Promise<http.Server> {
   const app = await createApp();
@@ -7,7 +8,7 @@ export async function startServer(environmentPort: number | string): Promise<htt
   const serverDomain = process.env.SERVER_DOMAIN || 'http://localhost';
   const port = normalizePort(environmentPort);
   server.listen(port);
-  console.info(`Listening on port: ${serverDomain}:${port}`);
+  logger.info(`Listening on port: ${serverDomain}:${port}`);
   return server;
 }
 

@@ -33,7 +33,7 @@ class Logger {
 
   public getStream() {
     return {
-      write: function (message, encoding) {
+      write: function (message) {
         this.logger.http(message);
       }.bind(this),
     };

@@ -1,0 +1,12 @@
+openapi: '3.0.2'
+info:
+  title: Proton API
+  version: '1.0'
+servers:
+  - url: /api/v1
+paths:
+  /test:
+    get:
+      responses:
+        '200':
+          description: OK

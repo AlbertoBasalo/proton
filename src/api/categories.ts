@@ -1,5 +1,11 @@
 import * as express from 'express';
-import { ResponseError } from '../models/ResponseError';
+import {
+  sendConflict,
+  sendCreated,
+  sendEmpty,
+  sendNotFound,
+  sendSuccess,
+} from './../util/responses';
 
 const categories = [
   { id: '1', name: 'Libraries', description: 'Packages or source code' },
@@ -7,7 +13,7 @@ const categories = [
 ];
 
 export function getCategories(req: express.Request, res: express.Response): void {
-  res.json({ categories });
+  sendSuccess(res, categories);
 }
 
 export function getCategoryById(
@@ -18,11 +24,9 @@ export function getCategoryById(
   const id = req.params.categoryId;
   const category = categories.find(c => c.id === id);
   if (category) {
-    res.json(category);
+    sendSuccess(res, category);
   } else {
-    const err: ResponseError = new Error(`Category with id ${id} was not found`);
-    err.status = 404;
-    next(err);
+    sendNotFound(next);
   }
 }
 export function postCategory(
@@ -32,14 +36,12 @@ export function postCategory(
 ): void {
   const newCategory = req.body;
   const id = newCategory.id;
-  const category = categories.find(c => c.id === id);
-  if (category) {
-    const err: ResponseError = new Error(`Category with id ${id} already found`);
-    err.status = 409;
-    next(err);
+  const categoryIndex = categories.findIndex(c => c.id === id);
+  if (categoryIndex >= 0) {
+    sendConflict(next);
   } else {
     categories.push(newCategory);
-    res.status(201).json({ newCategory });
+    sendCreated(res, newCategory);
   }
 }
 export function putCategory(
@@ -52,11 +54,9 @@ export function putCategory(
   if (categoryIndex >= 0) {
     const updatedCategory = req.body;
     categories[categoryIndex] = updatedCategory;
-    res.json(updatedCategory);
+    sendSuccess(res, updatedCategory);
   } else {
-    const err: ResponseError = new Error(`Category with id ${id} was not found`);
-    err.status = 404;
-    next(err);
+    sendNotFound(next);
   }
 }
 
@@ -69,10 +69,8 @@ export function deleteCategory(
   const categoryIndex = categories.findIndex(c => c.id === id);
   if (categoryIndex >= 0) {
     categories.splice(categoryIndex, 1);
-    res.sendStatus(204);
+    sendEmpty(res);
   } else {
-    const err: ResponseError = new Error(`Category with id ${id} was not found`);
-    err.status = 404;
-    next(err);
+    sendNotFound(next);
   }
 }

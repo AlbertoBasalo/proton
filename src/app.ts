@@ -1,12 +1,14 @@
 import express from 'express';
 import { Express } from 'express-serve-static-core';
-import addMiddelwareTo, { addResponseMiddlewareTo } from './middelware';
 import { RootConfig } from './models/RootConfig';
-import { connectOpenAPIRoutes } from './routes';
+import { processRequest } from './util/middelware';
+import { responseErrorHandler } from './util/responseErrorHandler';
+import { connectOpenAPIRoutes } from './util/routes';
+
 export async function createApp(rootConfig: RootConfig): Promise<Express> {
   const app = express();
-  addMiddelwareTo(app, rootConfig);
+  processRequest(app, rootConfig);
   connectOpenAPIRoutes(app);
-  addResponseMiddlewareTo(app, rootConfig);
+  responseErrorHandler(app, rootConfig);
   return app;
 }

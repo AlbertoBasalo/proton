@@ -2,17 +2,15 @@ import winston from 'winston';
 import { LoggerConfig } from '../models/LoggerConfig';
 import { loggerConfig } from './config';
 
-const prettyJson = winston.format.printf(entry => {
-  if (entry.message && entry.message.constructor === Object) {
-    const spaces = 2;
-    entry.message = JSON.stringify(entry.message, null, spaces);
-  }
-  return `${entry.timestamp} ${entry.label || '-'} ${entry.level}: ${entry.message}`;
-});
-
 class Logger {
   private readonly logger: winston.Logger;
-
+  private readonly prettyJson = winston.format.printf(entry => {
+    if (entry.message && entry.message.constructor === Object) {
+      const spaces = 2;
+      entry.message = JSON.stringify(entry.message, null, spaces);
+    }
+    return `${entry.timestamp} ${entry.label || '-'} ${entry.level}: ${entry.message}`;
+  });
   constructor(config: LoggerConfig) {
     this.logger = winston.createLogger({
       level: config.level,
@@ -23,7 +21,7 @@ class Logger {
         winston.format.splat(),
         winston.format.simple(),
         winston.format.timestamp({ format: config.timeStamp }),
-        prettyJson
+        this.prettyJson
       ),
       defaultMeta: { service: config.metaName },
       transports: [new winston.transports.Console({})],

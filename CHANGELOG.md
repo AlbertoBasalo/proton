@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/AtomicBuilders/proton/compare/v1.2.0...v1.3.0) (2021-01-12)
+
+
+### Features
+
+* added swagger openapi - Closes [#9](https://github.com/AtomicBuilders/proton/issues/9) ([055c3d5](https://github.com/AtomicBuilders/proton/commit/055c3d584d1eacf2aadbfcdd53ab42a174893ee7))
+* CRUD implementation [#10](https://github.com/AtomicBuilders/proton/issues/10) ([ae42d88](https://github.com/AtomicBuilders/proton/commit/ae42d88a505fc18b9c4457aa0501afdacace3fe0))
+
 ## [1.2.0](https://github.com/AtomicBuilders/proton/compare/v1.1.0...v1.2.0) (2021-01-11)
 
 

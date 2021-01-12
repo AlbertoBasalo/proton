@@ -29,6 +29,13 @@ A **boilerplate** ready to apply clean code techniques and testing.
 #### Logging
 #### Error Handling
 
+### 🔀 Routing
+
+#### OpenApi Swagger
+#### Middleware
+#### Uniform response
+#### Error handling
+
 
 ## ⚙ Workflows
 
@@ -60,7 +67,7 @@ If you want also the coverage report then use `npm run test:coverage` .
 
 If you want to publish your work as a package or simply want to keep track of your releases, then there is a script for you: `npm run release`. It will:
 
-- update the versión number
+- update the version number
 - update the change log file.
 - push and tag changes
 
@@ -149,6 +156,7 @@ Recommendations
 - [JavaScript (ES6) code snippets](https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets)
 - [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
 - [npm Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense)
+- [OpenAPI (Swagger) Editor](https://marketplace.visualstudio.com/items?itemName=42crunch.vscode-openapi)
 - [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
 - [Peacock](https://marketplace.visualstudio.com/items?itemName=johnpapa.vscode-peacock)
 - [Prettier](https://github.com/prettier/prettier-vscode)

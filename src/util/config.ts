@@ -8,9 +8,9 @@ export type LogLevel = 'error' | 'warn' | 'info' | 'http' | 'verbose' | 'debug' 
 initializeConfig();
 
 function initializeConfig() {
-  if (fs.existsSync('.env')) {
+  if (fs.existsSync('./config/.env')) {
     console.info('Using .env file to supply config environment variables');
-    dotenv.config({ path: '.env' });
+    dotenv.config({ path: './config/.env' });
   } else {
     console.warn(
       '.env file not found see .env.example file to supply data for your environment variables. Using default values instead. '
@@ -23,6 +23,11 @@ export const loggerConfig: LoggerConfig = {
   level: process.env.LOGGER_LEVEL || 'info',
   metaName: process.env.APP_NAME || 'proton',
   timeStamp: process.env.LOGGER_TIMESTAMP || 'YYYY-MM-DD HH:mm:ss.SSS',
+};
+
+export const routerConfig = {
+  openApi: process.env.OPEN_API || './config/openapi.yml',
+  morganTrace: ':method :url :status :response-time ms - :res[content-length]',
 };
 
 export const rootConfig: RootConfig = {

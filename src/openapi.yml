@@ -1,12 +1,65 @@
 openapi: '3.0.2'
 info:
   title: Proton API
+  description: Backend API example API declaration
   version: '1.0'
 servers:
   - url: /api/v1
 paths:
   /test:
     get:
+      description: Used as smoke test. Should return OK
+      operationId: test
       responses:
-        '200':
-          description: OK
+        200:
+          $ref: '#/components/responses/200'
+
+components:
+  responses:
+    '200':
+      description: Successful call
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/200'
+    '400':
+      description: Bad request. Check your parameters or payload.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/400'
+    '401':
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/401'
+    '404':
+      description: The resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/404'
+    '5XX':
+      description: Unexpected server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/5XX'
+
+  schemas:
+    200:
+      title: Successful response
+      type: object
+    400:
+      title: Request error response
+      type: object
+    401:
+      title: Authorization error response
+      type: object
+    404:
+      title: Not found response
+      type: object
+    5XX:
+      title: Server response
+      type: object

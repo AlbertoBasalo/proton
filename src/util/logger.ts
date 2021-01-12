@@ -3,7 +3,7 @@ import { LoggerConfig } from '../models/LoggerConfig';
 import { loggerConfig } from './config';
 
 const prettyJson = winston.format.printf(entry => {
-  if (entry.message.constructor === Object) {
+  if (entry.message && entry.message.constructor === Object) {
     const spaces = 2;
     entry.message = JSON.stringify(entry.message, null, spaces);
   }

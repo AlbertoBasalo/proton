@@ -6,6 +6,22 @@ info:
 servers:
   - url: /api/v1
 paths:
+  /categories:
+    get:
+      description: Get the category list
+      operationId: getCategories
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+  /categories/{categoryId}:
+    get:
+      description: Get a category by Id
+      operationId: getCategoryById
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
   /test:
     get:
       description: Used as smoke test. Should return OK

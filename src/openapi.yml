@@ -13,12 +13,36 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/200'
+    post:
+      description: Adds a category to the list
+      operationId: postCategory
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        409:
+          $ref: '#/components/responses/400'
   /categories/{categoryId}:
     get:
       description: Get a category by Id
       operationId: getCategoryById
       responses:
         200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+    put:
+      description: Updates a category at the list
+      operationId: putCategory
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+    delete:
+      description: Deletes a category from the list
+      operationId: deleteCategory
+      responses:
+        204:
           $ref: '#/components/responses/200'
         404:
           $ref: '#/components/responses/404'
@@ -38,6 +62,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/200'
+    '201':
+      description: Successful added call
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/201'
+    '204':
+      description: Successful deleted call
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/204'
     '400':
       description: Bad request. Check your parameters or payload.
       content:
@@ -65,8 +101,13 @@ components:
 
   schemas:
     200:
-      title: Successful response
+      title: Successful processed response
       type: object
+    201:
+      title: Successful added response
+      type: object
+    204:
+      title: Successful deleted response
     400:
       title: Request error response
       type: object

@@ -1,5 +1,4 @@
 import bodyParser from 'body-parser';
-import errorhandler from 'errorhandler';
 import express from 'express';
 import { Express } from 'express-serve-static-core';
 import morgan from 'morgan';
@@ -25,7 +24,7 @@ function addLoggingMiddleware(app: Express, rootConfig: RootConfig) {
 }
 export function addResponseMiddlewareTo(app: Express, rootConfig: RootConfig): void {
   if (rootConfig.isProduction == false) {
-    app.use(errorhandler({ log: err => logger.error(err) }));
+    // app.use(errorhandler({ log: (err: Error) => logger.error(err) }));
   }
   app.use(
     (
@@ -37,7 +36,15 @@ export function addResponseMiddlewareTo(app: Express, rootConfig: RootConfig): v
       if (err) {
         logger.warn(req.url);
         logger.error(err);
-        res.status(err.status).json(err);
+        const responseError: ResponseError = {
+          status: err.status,
+          name: err.name,
+          message: err.message,
+        };
+        if (rootConfig.isProduction == false) {
+          responseError.stack = err.stack;
+        }
+        res.status(err.status).json(responseError);
       } else {
         next;
       }

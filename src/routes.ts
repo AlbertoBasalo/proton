@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import express from 'express';
 import * as OpenApiValidator from 'express-openapi-validator';
 import { Express } from 'express-serve-static-core';
 import { connector, summarise } from 'swagger-routes-express';
@@ -20,15 +19,15 @@ export function connectOpenAPIRoutes(app: Express): void {
 
   validateApiDefinition(app);
 
-  app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    if (err) {
-      logger.warn(req.url);
-      logger.error(err);
-      res.status(err.status).json(err);
-    } else {
-      next;
-    }
-  });
+  // app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  //   if (err) {
+  //     logger.warn(req.url);
+  //     logger.error(err);
+  //     res.status(err.status).json({ status: err.status, name: err.name });
+  //   } else {
+  //     next;
+  //   }
+  // });
 
   connectApiToControllers(apiDefinition, app);
 }

@@ -14,6 +14,7 @@ export function responseErrorHandler(app: Express, rootConfig: RootConfig): void
       next: express.NextFunction
     ) => {
       if (!err) {
+        // ToDo: infer response code from method verb
         next;
         return;
       }

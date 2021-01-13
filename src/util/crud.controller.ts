@@ -1,6 +1,13 @@
 import * as express from 'express';
 import { Repository } from '../models/Repository';
-import { sendConflict, sendCreated, sendEmpty, sendNotFound, sendSuccess } from './responses';
+import {
+  sendConflict,
+  sendCreated,
+  sendEmpty,
+  sendError,
+  sendNotFound,
+  sendSuccess,
+} from './responses';
 
 export async function get(
   req: express.Request,
@@ -8,18 +15,18 @@ export async function get(
   next: express.NextFunction,
   repository: Repository
 ): Promise<void> {
-  const result = await repository.selectAsync();
+  const result = await repository.select();
   sendSuccess(res, result);
 }
 
-export function getById(
+export async function getById(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction,
   repository: Repository
-): void {
+): Promise<void> {
   const id = req.params.id;
-  const result = repository.selectById(id);
+  const result = await repository.selectById(id);
   if (result) {
     sendSuccess(res, result);
   } else {
@@ -27,14 +34,14 @@ export function getById(
   }
 }
 
-export function post(
+export async function post(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction,
   repository: Repository
-): void {
+): Promise<void> {
   const toAdd = req.body;
-  const added = repository.insert(toAdd);
+  const added = await repository.insert(toAdd);
   if (added) {
     sendCreated(res, added);
   } else {
@@ -42,30 +49,34 @@ export function post(
   }
 }
 
-export function put(
+export async function put(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction,
   repository: Repository
-): void {
-  const id = req.params.id;
-  const toUpdate = req.body;
-  const updated = repository.update(id, toUpdate);
-  if (updated) {
-    sendSuccess(res, updated);
-  } else {
-    sendNotFound(next);
+): Promise<void> {
+  try {
+    const id = req.params.id;
+    const toUpdate = req.body;
+    const updated = await repository.update(id, toUpdate);
+    if (updated) {
+      sendSuccess(res, updated);
+    } else {
+      sendNotFound(next);
+    }
+  } catch (error) {
+    sendError(next, error.message);
   }
 }
 
-export function remove(
+export async function remove(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction,
   repository: Repository
-): void {
+): Promise<void> {
   const id = req.params.id;
-  const removed = repository.delete(id);
+  const removed = await repository.delete(id);
   if (removed) {
     sendEmpty(res);
   } else {

@@ -41,3 +41,7 @@ export function sendConflict(
 ): void {
   next(getConflict(message));
 }
+
+export function sendError(next: express.NextFunction, message = 'Internal Error'): void {
+  next(getError(message));
+}

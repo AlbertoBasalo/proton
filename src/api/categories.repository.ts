@@ -1,19 +1,3 @@
-import { MemoryRepository } from '../util/MemoryRepository';
-import { MongoRepository } from '../util/MongoDBRepository';
+import { CategoriesMongoRepository } from './CategoriesMongoRepository';
 
-class CategoriesRepository extends MemoryRepository {
-  constructor() {
-    const collection = [
-      { id: '1', name: 'Libraries', description: 'Packages or source code' },
-      { id: '2', name: 'UI components', description: 'Presentational frameworks and utilities' },
-    ];
-
-    super(collection);
-  }
-
-  public async selectAsync(): Promise<unknown[]> {
-    return await new MongoRepository('categories').select();
-  }
-}
-
-export const categoriesRepository = new CategoriesRepository();
+export const categoriesRepository = new CategoriesMongoRepository();

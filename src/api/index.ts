@@ -1,3 +1,3 @@
 export * from './categories.controller';
 export * from './items.controller';
-export * from './root';
+export * from './root.controller';

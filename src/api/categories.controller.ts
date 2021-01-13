@@ -1,13 +1,10 @@
 import * as express from 'express';
 import { sendConflict, sendCreated, sendEmpty, sendNotFound, sendSuccess } from '../util/responses';
-
-const categories = [
-  { id: '1', name: 'Libraries', description: 'Packages or source code' },
-  { id: '2', name: 'UI components', description: 'Presentational frameworks and utilities' },
-];
+import { insert, remove, select, selectById, update } from './categories.repository';
 
 export function getCategories(req: express.Request, res: express.Response): void {
-  sendSuccess(res, categories);
+  const result = select();
+  sendSuccess(res, result);
 }
 
 export function getCategoryById(
@@ -16,7 +13,7 @@ export function getCategoryById(
   next: express.NextFunction
 ): void {
   const id = req.params.id;
-  const result = categories.find(x => x.id === id);
+  const result = selectById(id);
   if (result) {
     sendSuccess(res, result);
   } else {
@@ -28,14 +25,12 @@ export function postCategory(
   res: express.Response,
   next: express.NextFunction
 ): void {
-  const added = req.body;
-  const id = added.id;
-  const index = categories.findIndex(x => x.id === id);
-  if (index >= 0) {
-    sendConflict(next);
-  } else {
-    categories.push(added);
+  const toAdd = req.body;
+  const added = insert(toAdd);
+  if (added) {
     sendCreated(res, added);
+  } else {
+    sendConflict(next);
   }
 }
 export function putCategory(
@@ -44,10 +39,9 @@ export function putCategory(
   next: express.NextFunction
 ): void {
   const id = req.params.id;
-  const index = categories.findIndex(x => x.id === id);
-  if (index >= 0) {
-    const updated = req.body;
-    categories[index] = updated;
+  const toUpdate = req.body;
+  const updated = update(id, toUpdate);
+  if (updated) {
     sendSuccess(res, updated);
   } else {
     sendNotFound(next);
@@ -60,9 +54,8 @@ export function deleteCategory(
   next: express.NextFunction
 ): void {
   const id = req.params.id;
-  const index = categories.findIndex(x => x.id === id);
-  if (index >= 0) {
-    categories.splice(index, 1);
+  const removed = remove(id);
+  if (removed >= 0) {
     sendEmpty(res);
   } else {
     sendNotFound(next);

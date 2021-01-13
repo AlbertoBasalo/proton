@@ -8,22 +8,22 @@ servers:
 paths:
   /categories:
     get:
-      description: Get the category list
+      description: Get the Category list
       operationId: getCategories
       responses:
         200:
           $ref: '#/components/responses/200'
     post:
-      description: Adds a category to the list
+      description: Adds a Category to the list
       operationId: postCategory
       responses:
         201:
           $ref: '#/components/responses/201'
         409:
           $ref: '#/components/responses/400'
-  /categories/{categoryId}:
+  /categories/{id}:
     get:
-      description: Get a category by Id
+      description: Get a Category by Id
       operationId: getCategoryById
       responses:
         200:
@@ -31,7 +31,7 @@ paths:
         404:
           $ref: '#/components/responses/404'
     put:
-      description: Updates a category at the list
+      description: Updates a Category at the list
       operationId: putCategory
       responses:
         200:
@@ -39,8 +39,64 @@ paths:
         404:
           $ref: '#/components/responses/404'
     delete:
-      description: Deletes a category from the list
+      description: Deletes a Category from the list
       operationId: deleteCategory
+      responses:
+        204:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+  /categories/{id}/items:
+    get:
+      description: Get Items by CategoryId
+      operationId: getItemsByCategoryId
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+  /items:
+    get:
+      description: Get the Item list
+      operationId: getItems
+      parameters:
+        - in: query
+          name: byCategory
+          required: false
+          schema:
+            type: string
+          description: The items of a given category
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+    post:
+      description: Adds a Item to the list
+      operationId: postItem
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        409:
+          $ref: '#/components/responses/400'
+  /items/{id}:
+    get:
+      description: Get a Item by Id
+      operationId: getItemById
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+    put:
+      description: Updates a Item at the list
+      operationId: putItem
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+    delete:
+      description: Deletes a Item from the list
+      operationId: deleteItem
       responses:
         204:
           $ref: '#/components/responses/200'

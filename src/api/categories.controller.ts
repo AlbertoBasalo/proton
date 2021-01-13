@@ -1,11 +1,5 @@
 import * as express from 'express';
-import {
-  sendConflict,
-  sendCreated,
-  sendEmpty,
-  sendNotFound,
-  sendSuccess,
-} from './../util/responses';
+import { sendConflict, sendCreated, sendEmpty, sendNotFound, sendSuccess } from '../util/responses';
 
 const categories = [
   { id: '1', name: 'Libraries', description: 'Packages or source code' },
@@ -21,10 +15,10 @@ export function getCategoryById(
   res: express.Response,
   next: express.NextFunction
 ): void {
-  const id = req.params.categoryId;
-  const category = categories.find(c => c.id === id);
-  if (category) {
-    sendSuccess(res, category);
+  const id = req.params.id;
+  const result = categories.find(x => x.id === id);
+  if (result) {
+    sendSuccess(res, result);
   } else {
     sendNotFound(next);
   }
@@ -34,14 +28,14 @@ export function postCategory(
   res: express.Response,
   next: express.NextFunction
 ): void {
-  const newCategory = req.body;
-  const id = newCategory.id;
-  const categoryIndex = categories.findIndex(c => c.id === id);
-  if (categoryIndex >= 0) {
+  const added = req.body;
+  const id = added.id;
+  const index = categories.findIndex(x => x.id === id);
+  if (index >= 0) {
     sendConflict(next);
   } else {
-    categories.push(newCategory);
-    sendCreated(res, newCategory);
+    categories.push(added);
+    sendCreated(res, added);
   }
 }
 export function putCategory(
@@ -49,12 +43,12 @@ export function putCategory(
   res: express.Response,
   next: express.NextFunction
 ): void {
-  const id = req.params.categoryId;
-  const categoryIndex = categories.findIndex(c => c.id === id);
-  if (categoryIndex >= 0) {
-    const updatedCategory = req.body;
-    categories[categoryIndex] = updatedCategory;
-    sendSuccess(res, updatedCategory);
+  const id = req.params.id;
+  const index = categories.findIndex(x => x.id === id);
+  if (index >= 0) {
+    const updated = req.body;
+    categories[index] = updated;
+    sendSuccess(res, updated);
   } else {
     sendNotFound(next);
   }
@@ -65,10 +59,10 @@ export function deleteCategory(
   res: express.Response,
   next: express.NextFunction
 ): void {
-  const id = req.params.categoryId;
-  const categoryIndex = categories.findIndex(c => c.id === id);
-  if (categoryIndex >= 0) {
-    categories.splice(categoryIndex, 1);
+  const id = req.params.id;
+  const index = categories.findIndex(x => x.id === id);
+  if (index >= 0) {
+    categories.splice(index, 1);
     sendEmpty(res);
   } else {
     sendNotFound(next);

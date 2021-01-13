@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import * as express from 'express';
-import { httpStatus } from './../models/httpStatus';
-import { ResponseError } from './../models/ResponseError';
+import { httpStatus } from '../../models/httpStatus';
+import { ResponseError } from '../../models/ResponseError';
 
 function getNotFound(message: string): ResponseError {
   return getError(message, httpStatus.NOT_FOUND);
@@ -40,4 +40,8 @@ export function sendConflict(
   message = 'Conflict with current data'
 ): void {
   next(getConflict(message));
+}
+
+export function sendError(next: express.NextFunction, message = 'Internal Error'): void {
+  next(getError(message));
 }

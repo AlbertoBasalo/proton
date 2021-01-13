@@ -36,6 +36,13 @@ A **boilerplate** ready to apply clean code techniques and testing.
 #### Uniform response
 #### Error handling
 
+### 🔀 Data Repositories
+
+#### Controller and repositories
+#### In Memory
+#### MongoDB (no mongoose nor other orm)
+#### _No static typed ...yet_
+
 
 ## ⚙ Workflows
 

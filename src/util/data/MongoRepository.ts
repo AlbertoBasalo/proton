@@ -1,19 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import { MongoClient } from 'mongodb';
-import { Repository } from '../models/Repository';
-import { mongoConfig } from './config';
-
-const client = new MongoClient(mongoConfig.uri, { useNewUrlParser: true });
-
-export async function connectToMongo(): Promise<unknown> {
-  return await client.connect();
-}
+import { Collection } from 'mongodb';
+import { Repository } from '../../models/Repository';
+import { mongoConfig } from '../config';
+import { mongoClient } from './mongoClient';
 
 export class MongoRepository implements Repository {
   constructor(protected readonly collectionName: string) {}
 
-  protected getCollection() {
-    return client.db(mongoConfig.db).collection(this.collectionName);
+  protected getCollection(): Collection<any> {
+    return mongoClient.db(mongoConfig.db).collection(this.collectionName);
   }
 
   public select(): Promise<unknown[]> {

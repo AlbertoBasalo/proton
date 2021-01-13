@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { get, getById, post, put, remove } from '../util/crud.controller';
+import { get, getById, post, put, remove } from '../../util/data/crud.controller';
 import { categoriesRepository as repository } from './categories.repository';
 
 export function getCategories(

@@ -31,6 +31,7 @@ export const routerConfig = {
 };
 
 export const mongoConfig = {
+  connect: process.env.MONGO_CONNECT || false,
   uri: process.env.MONGO_URI || '',
   db: process.env.MONGO_DB || 'proton',
 };

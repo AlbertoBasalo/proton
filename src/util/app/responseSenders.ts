@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import * as express from 'express';
-import { httpStatus } from './../models/httpStatus';
-import { ResponseError } from './../models/ResponseError';
+import { httpStatus } from '../../models/httpStatus';
+import { ResponseError } from '../../models/ResponseError';
 
 function getNotFound(message: string): ResponseError {
   return getError(message, httpStatus.NOT_FOUND);

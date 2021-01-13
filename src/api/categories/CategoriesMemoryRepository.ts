@@ -1,4 +1,4 @@
-import { MemoryRepository } from '../util/MemoryRepository';
+import { MemoryRepository } from '../../util/data/MemoryRepository';
 
 export class CategoriesMemoryRepository extends MemoryRepository {
   constructor() {

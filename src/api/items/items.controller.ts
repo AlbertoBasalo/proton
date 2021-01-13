@@ -1,6 +1,6 @@
 import * as express from 'express';
-import { get, getById, post, put, remove } from '../util/crud.controller';
-import { sendNotFound, sendSuccess } from '../util/responses';
+import { sendNotFound, sendSuccess } from '../../util/app/responseSenders';
+import { get, getById, post, put, remove } from '../../util/data/crud.controller';
 import { itemsRepository as repository } from './items.repository';
 
 export function getItems(

@@ -1,4 +1,4 @@
-import { Repository } from '../models/Repository';
+import { Repository } from '../../models/Repository';
 
 export abstract class MemoryRepository implements Repository {
   constructor(protected readonly collection: any[]) {}

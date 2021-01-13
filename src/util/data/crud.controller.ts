@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { Repository } from '../models/Repository';
+import { Repository } from '../../models/Repository';
 import {
   sendConflict,
   sendCreated,
@@ -7,7 +7,7 @@ import {
   sendError,
   sendNotFound,
   sendSuccess,
-} from './responses';
+} from '../app/responseSenders';
 
 export async function get(
   req: express.Request,

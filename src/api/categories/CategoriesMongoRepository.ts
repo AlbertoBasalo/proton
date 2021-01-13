@@ -1,4 +1,4 @@
-import { MongoRepository } from '../util/MongoDBRepository';
+import { MongoRepository } from '../../util/data/MongoRepository';
 
 export class CategoriesMongoRepository extends MongoRepository {
   constructor() {

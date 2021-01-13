@@ -42,19 +42,3 @@ export abstract class MemoryRepository implements Repository {
     }
   }
 }
-
-// class Singleton {
-//   private static instance: MemoryRepository;
-//   constructor() {
-//     throw new Error('Use the getInstance() method on the Singleton object!');
-//   }
-
-//   getInstance(collection) {
-//     if (!Singleton.instance) {
-//       Singleton.instance = new MemoryRepository(collection);
-//     }
-//     return Singleton.instance;
-//   }
-// }
-
-// export default Singleton;

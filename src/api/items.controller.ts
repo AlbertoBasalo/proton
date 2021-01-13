@@ -1,5 +1,6 @@
 import * as express from 'express';
-import { sendConflict, sendCreated, sendEmpty, sendNotFound, sendSuccess } from '../util/responses';
+import { get, getById, post, put, remove } from '../util/crud.controller';
+import { sendNotFound, sendSuccess } from '../util/responses';
 import { itemsRepository as repository } from './items.repository';
 
 export function getItems(
@@ -16,8 +17,7 @@ export function getItems(
       sendNotFound(next);
     }
   } else {
-    const result = repository.select();
-    sendSuccess(res, result);
+    get(req, res, next, repository);
   }
 }
 
@@ -26,13 +26,7 @@ export function getItemById(
   res: express.Response,
   next: express.NextFunction
 ): void {
-  const id = req.params.id;
-  const result = repository.selectById(id);
-  if (result) {
-    sendSuccess(res, result);
-  } else {
-    sendNotFound(next);
-  }
+  getById(req, res, next, repository);
 }
 
 export function getItemsByCategoryId(
@@ -54,27 +48,14 @@ export function postItem(
   res: express.Response,
   next: express.NextFunction
 ): void {
-  const toAdd = req.body;
-  const added = repository.insert(toAdd);
-  if (added) {
-    sendCreated(res, added);
-  } else {
-    sendConflict(next);
-  }
+  post(req, res, next, repository);
 }
 export function putItem(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ): void {
-  const id = req.params.id;
-  const toUpdate = req.body;
-  const updated = repository.update(id, toUpdate);
-  if (updated) {
-    sendSuccess(res, updated);
-  } else {
-    sendNotFound(next);
-  }
+  put(req, res, next, repository);
 }
 
 export function deleteItem(
@@ -82,11 +63,5 @@ export function deleteItem(
   res: express.Response,
   next: express.NextFunction
 ): void {
-  const id = req.params.id;
-  const removed = repository.delete(id);
-  if (removed) {
-    sendEmpty(res);
-  } else {
-    sendNotFound(next);
-  }
+  remove(req, res, next, repository);
 }

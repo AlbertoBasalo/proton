@@ -55,7 +55,7 @@ export function deleteCategory(
 ): void {
   const id = req.params.id;
   const removed = repository.delete(id);
-  if (removed >= 0) {
+  if (removed) {
     sendEmpty(res);
   } else {
     sendNotFound(next);

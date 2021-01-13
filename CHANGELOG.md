@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/AtomicBuilders/proton/compare/v1.3.1...v1.4.0) (2021-01-13)
+
+
+### Features
+
+*  MongoDB repository - Closes [#16](https://github.com/AtomicBuilders/proton/issues/16) ([12c5db5](https://github.com/AtomicBuilders/proton/commit/12c5db5114c40ee7aabd73cbd6fb346d1001c7fc))
+* crud controllers repositories Closes [#14](https://github.com/AtomicBuilders/proton/issues/14) [#15](https://github.com/AtomicBuilders/proton/issues/15) ([e140d03](https://github.com/AtomicBuilders/proton/commit/e140d03495b583d897a8a7858e8e3ed974a8386c))
+* items resource - Closes [#14](https://github.com/AtomicBuilders/proton/issues/14) [#15](https://github.com/AtomicBuilders/proton/issues/15) ([478c47f](https://github.com/AtomicBuilders/proton/commit/478c47fa4d447b7b10ebd329be6b1336ae0bd4ac))
+
+
+### Bug Fixes
+
+* removed check on controllers ([e267333](https://github.com/AtomicBuilders/proton/commit/e267333e037278e8a513a1e376ffbf2228d935ce))
+
 ### [1.3.1](https://github.com/AtomicBuilders/proton/compare/v1.3.0...v1.3.1) (2021-01-13)
 
 ## [1.3.0](https://github.com/AtomicBuilders/proton/compare/v1.2.0...v1.3.0) (2021-01-12)

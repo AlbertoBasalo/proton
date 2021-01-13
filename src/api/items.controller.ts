@@ -1,45 +1,23 @@
 import * as express from 'express';
 import { sendConflict, sendCreated, sendEmpty, sendNotFound, sendSuccess } from '../util/responses';
-
-const items = [
-  {
-    id: '1',
-    categoryId: '1',
-    name: 'RxJs',
-    description: 'Asynchronous and event-based programs by using observable sequences',
-    url: 'https://rxjs-dev.firebaseapp.com/guide/overview',
-  },
-  {
-    id: '2',
-    categoryId: '2',
-    name: 'Angular Material',
-    description: 'Material Design components for mobile and desktop web applications',
-    url: 'https://material.angular.io/',
-  },
-  {
-    id: '3',
-    categoryId: '2',
-    name: 'Taiga UI',
-    description: 'Powerful set of customizable components',
-    url: 'https://taiga-ui.dev/',
-  },
-];
+import { itemsRepository as repository } from './items.repository';
 
 export function getItems(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ): void {
-  const categoryId = req.query.byCategory;
+  const categoryId = req.query.byCategory as string;
   if (categoryId) {
-    const result = items.filter(x => x.categoryId === categoryId);
+    const result = repository.selectByCategoryId(categoryId);
     if (result) {
       sendSuccess(res, result);
     } else {
       sendNotFound(next);
     }
   } else {
-    sendSuccess(res, items);
+    const result = repository.select();
+    sendSuccess(res, result);
   }
 }
 
@@ -49,7 +27,7 @@ export function getItemById(
   next: express.NextFunction
 ): void {
   const id = req.params.id;
-  const result = items.find(x => x.id === id);
+  const result = repository.selectById(id);
   if (result) {
     sendSuccess(res, result);
   } else {
@@ -63,7 +41,7 @@ export function getItemsByCategoryId(
   next: express.NextFunction
 ): void {
   const categoryId = req.params.id;
-  const result = items.filter(x => x.categoryId === categoryId);
+  const result = repository.selectByCategoryId(categoryId);
   if (result) {
     sendSuccess(res, result);
   } else {
@@ -76,14 +54,12 @@ export function postItem(
   res: express.Response,
   next: express.NextFunction
 ): void {
-  const added = req.body;
-  const id = added.id;
-  const index = items.findIndex(x => x.id === id);
-  if (index >= 0) {
-    sendConflict(next);
-  } else {
-    items.push(added);
+  const toAdd = req.body;
+  const added = repository.insert(toAdd);
+  if (added) {
     sendCreated(res, added);
+  } else {
+    sendConflict(next);
   }
 }
 export function putItem(
@@ -92,10 +68,9 @@ export function putItem(
   next: express.NextFunction
 ): void {
   const id = req.params.id;
-  const index = items.findIndex(x => x.id === id);
-  if (index >= 0) {
-    const updated = req.body;
-    items[index] = updated;
+  const toUpdate = req.body;
+  const updated = repository.update(id, toUpdate);
+  if (updated) {
     sendSuccess(res, updated);
   } else {
     sendNotFound(next);
@@ -108,9 +83,8 @@ export function deleteItem(
   next: express.NextFunction
 ): void {
   const id = req.params.id;
-  const index = items.findIndex(x => x.id === id);
-  if (index >= 0) {
-    items.splice(index, 1);
+  const removed = repository.delete(id);
+  if (removed >= 0) {
     sendEmpty(res);
   } else {
     sendNotFound(next);

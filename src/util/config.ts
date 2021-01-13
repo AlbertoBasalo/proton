@@ -30,6 +30,11 @@ export const routerConfig = {
   morganTrace: ':method :url :status :response-time ms - :res[content-length]',
 };
 
+export const mongoConfig = {
+  uri: process.env.MONGO_URI || '',
+  db: process.env.MONGO_DB || 'proton',
+};
+
 export const rootConfig: RootConfig = {
   environment: process.env.NODE_ENV,
   isProduction: process.env.NODE_ENV === 'production',

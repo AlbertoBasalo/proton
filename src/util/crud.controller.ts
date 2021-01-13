@@ -2,13 +2,13 @@ import * as express from 'express';
 import { Repository } from '../models/Repository';
 import { sendConflict, sendCreated, sendEmpty, sendNotFound, sendSuccess } from './responses';
 
-export function get(
+export async function get(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction,
   repository: Repository
-): void {
-  const result = repository.select();
+): Promise<void> {
+  const result = await repository.selectAsync();
   sendSuccess(res, result);
 }
 

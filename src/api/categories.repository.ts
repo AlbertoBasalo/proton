@@ -1,4 +1,5 @@
 import { MemoryRepository } from '../util/MemoryRepository';
+import { MongoRepository } from '../util/MongoDBRepository';
 
 class CategoriesRepository extends MemoryRepository {
   constructor() {
@@ -8,6 +9,10 @@ class CategoriesRepository extends MemoryRepository {
     ];
 
     super(collection);
+  }
+
+  public async selectAsync(): Promise<unknown[]> {
+    return await new MongoRepository('categories').select();
   }
 }
 

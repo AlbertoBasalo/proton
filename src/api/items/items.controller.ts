@@ -1,16 +1,17 @@
 import * as express from 'express';
 import { sendNotFound, sendSuccess } from '../../util/app/responseSenders';
 import { get, getById, post, put, remove } from '../../util/data/crud.controller';
+import { Item } from './Item';
 import { itemsRepository as repository } from './items.repository.factory';
 
-export function getItems(
+export async function getItems(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
-): void {
+): Promise<void> {
   const categoryId = req.query.byCategory as string;
   if (categoryId) {
-    const result = repository.selectByCategoryId(categoryId);
+    const result = (await repository.selectByCategoryId(categoryId)) as Item[];
     if (result) {
       sendSuccess(res, result);
     } else {
@@ -29,13 +30,13 @@ export function getItemById(
   getById(req, res, next, repository);
 }
 
-export function getItemsByCategoryId(
+export async function getItemsByCategoryId(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
-): void {
+): Promise<void> {
   const categoryId = req.params.id;
-  const result = repository.selectByCategoryId(categoryId);
+  const result = await repository.selectByCategoryId(categoryId);
   if (result) {
     sendSuccess(res, result);
   } else {

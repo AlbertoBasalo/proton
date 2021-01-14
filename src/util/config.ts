@@ -42,6 +42,7 @@ export const rootConfig: RootConfig = {
   appName: process.env.APP_NAME || 'proton',
   port: normalizePort(process.env.PORT) || DEFAULT_PORT,
   serverDomain: process.env.SERVER_DOMAIN || 'http://localhost',
+  repository: process.env.REPOSITORY || 'memory',
   loggerConfig: loggerConfig,
 };
 

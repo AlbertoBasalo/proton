@@ -11,11 +11,17 @@ export class MongoRepository<T> implements Repository<T> {
   }
 
   public select(): Promise<T[]> {
-    return this.getCollection().find().toArray();
+    return this.selectByQuery({});
+  }
+
+  public selectByQuery(query: FilterQuery<T>): Promise<T[]> {
+    return this.getCollection()
+      .find(query, { projection: { _id: 0 } })
+      .toArray();
   }
 
   public async selectById(id: string): Promise<T | null> {
-    return await this.getCollection().findOne<T>(this.getKeyQuery(id));
+    return await this.getCollection().findOne<T>(this.getKeyQuery(id), { projection: { _id: 0 } });
   }
 
   public async insert(toAdd: T): Promise<T> {

@@ -5,7 +5,7 @@ export class ItemsMongoRepository extends MongoRepository<Item> {
   constructor() {
     super('items');
   }
-  public selectByCategoryId(id: string): Promise<Item[]> {
-    return super.getCollection().find({ categoryId: id }).toArray();
+  public async selectByCategoryId(id: string): Promise<Item[]> {
+    return this.selectByQuery({ categoryId: id });
   }
 }

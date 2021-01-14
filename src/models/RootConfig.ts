@@ -6,5 +6,6 @@ export interface RootConfig {
   appName: string;
   port: number;
   serverDomain: string;
+  repository: string;
   loggerConfig: LoggerConfig;
 }

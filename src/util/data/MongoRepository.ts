@@ -1,47 +1,48 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-types */
-import { Collection } from 'mongodb';
+import { Collection, FilterQuery, OptionalId } from 'mongodb';
 import { Repository } from '../../models/Repository';
 import { mongoConfig } from '../config';
-import { mongoClient } from './mongoClient';
+import { mongoClient } from './mongo.adapter';
 
-export class MongoRepository implements Repository {
+export class MongoRepository<T> implements Repository<T> {
   constructor(protected readonly collectionName: string) {}
 
-  protected getCollection(): Collection<any> {
-    return mongoClient.db(mongoConfig.db).collection(this.collectionName);
+  protected getCollection(): Collection<T> {
+    return mongoClient.db(mongoConfig.db).collection<T>(this.collectionName);
   }
 
-  public select(): Promise<unknown[]> {
+  public select(): Promise<T[]> {
     return this.getCollection().find().toArray();
   }
 
-  public async selectById(id: string): Promise<unknown> {
-    return await this.getCollection().findOne<object>({ id: id });
+  public async selectById(id: string): Promise<T | null> {
+    return await this.getCollection().findOne<T>(this.getKeyQuery(id));
   }
 
-  public async insert(toAdd: object): Promise<unknown> {
+  public async insert(toAdd: T): Promise<T> {
     const conflict = await this.selectById(toAdd['id']);
     if (conflict) {
       return null;
     }
-    const result = await this.getCollection().insertOne(toAdd);
+    const result = await this.getCollection().insertOne(toAdd as OptionalId<T>);
     return { _id: result.insertedId, ...toAdd };
   }
-  public async update(id: string, toUpdate: object): Promise<object> {
-    const result = await this.getCollection().findOneAndReplace({ id: id }, toUpdate);
+  public async update(id: string, toUpdate: Partial<T>): Promise<T> {
+    const result = await this.getCollection().findOneAndReplace(this.getKeyQuery(id), toUpdate);
     if (result['value']) {
       return { ...result['value'] };
     } else {
       return null;
     }
   }
-  public async delete(id: string): Promise<unknown> {
-    const result = await this.getCollection().findOneAndDelete({ id: id });
+  public async delete(id: string): Promise<boolean> {
+    const result = await this.getCollection().findOneAndDelete(this.getKeyQuery(id));
     if (result['value']) {
       return true;
     } else {
       return false;
     }
+  }
+  private getKeyQuery(id: string): FilterQuery<T | { _id: unknown }> {
+    return { id: id };
   }
 }

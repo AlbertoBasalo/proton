@@ -40,7 +40,7 @@ A **boilerplate** ready to apply clean code techniques and testing.
 
 #### Controller and repositories
 #### In Memory
-#### MongoDB (no mongoose nor other orm)
+#### MongoDB (no mongoose nor other ORM)
 #### _No static typed ...yet_
 
 

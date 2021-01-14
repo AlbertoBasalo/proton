@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { sendNotFound, sendSuccess } from '../../util/app/responseSenders';
 import { get, getById, post, put, remove } from '../../util/data/crud.controller';
-import { itemsRepository as repository } from './items.repository';
+import { itemsRepository as repository } from './items.repository.factory';
 
 export function getItems(
   req: express.Request,
@@ -14,7 +14,7 @@ export function getItems(
     if (result) {
       sendSuccess(res, result);
     } else {
-      sendNotFound(next);
+      sendNotFound(res);
     }
   } else {
     get(req, res, next, repository);
@@ -39,7 +39,7 @@ export function getItemsByCategoryId(
   if (result) {
     sendSuccess(res, result);
   } else {
-    sendNotFound(next);
+    sendNotFound(res);
   }
 }
 

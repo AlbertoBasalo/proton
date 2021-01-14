@@ -5,7 +5,7 @@ import { ResponseError } from '../../models/ResponseError';
 import { RootConfig } from '../../models/RootConfig';
 import { logger } from '../logger';
 
-export function responseHandler(app: Express, rootConfig: RootConfig): void {
+export function responseErrorHandler(app: Express, rootConfig: RootConfig): void {
   app.use(
     (
       err: ResponseError,
@@ -13,11 +13,10 @@ export function responseHandler(app: Express, rootConfig: RootConfig): void {
       res: express.Response,
       next: express.NextFunction
     ) => {
-      if (err) {
-        handleError(err, req, res, rootConfig);
-      } else {
-        handleSuccess(req, res, next, rootConfig);
+      if (res.headersSent) {
+        return next(err);
       }
+      handleError(err, req, res, rootConfig);
     }
   );
 }
@@ -28,28 +27,14 @@ function handleError(
   res: express.Response,
   rootConfig: RootConfig
 ) {
-  logger.warn(req.url);
   logger.error(err);
   const responseError: ResponseError = {
-    status: err.status || httpStatus.INTERNAL_SERVER_ERROR,
     name: err.name,
     message: err.message,
   };
-
-  if (rootConfig.isProduction) {
-    responseError.stack = '';
-  } else {
-    responseError.errors = err.errors || '';
+  if (err.errors) responseError.errors = err.errors;
+  if (!rootConfig.isProduction) {
+    logger.warn(`${req.url} throws ${err.stack || 'No stack'}`);
   }
-  res.status(err.status).json({ error: responseError });
-}
-
-function handleSuccess(
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction,
-  rootConfig: RootConfig
-) {
-  // ToDo: infer response code from method verb
-  next;
+  res.status(err.status || httpStatus.INTERNAL_SERVER_ERROR).json(responseError);
 }

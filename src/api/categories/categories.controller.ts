@@ -1,13 +1,14 @@
 import * as express from 'express';
 import { get, getById, post, put, remove } from '../../util/data/crud.controller';
-import { categoriesRepository as repository } from './categories.repository';
+import { categoriesRepository as repository } from './categories.repository.factory';
+import { Category } from './Category';
 
 export function getCategories(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ): void {
-  get(req, res, next, repository);
+  get<Category>(req, res, next, repository);
 }
 
 export function getCategoryById(
@@ -25,12 +26,12 @@ export function postCategory(
 ): void {
   post(req, res, next, repository);
 }
-export function putCategory(
+export async function putCategory(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
-): void {
-  put(req, res, next, repository);
+): Promise<void> {
+  await put(req, res, next, repository);
 }
 
 export function deleteCategory(

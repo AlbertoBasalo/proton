@@ -31,7 +31,8 @@
         "detectObjects": false,
         "enforceConst": true,
         "ignore": [0, 1, 2],
-        "ignoreArrayIndexes": true
+        "ignoreArrayIndexes": true,
+        "ignoreEnums": true
       }
     ],
     "no-multiple-empty-lines": ["warn", { "max": 2, "maxEOF": 1 }],

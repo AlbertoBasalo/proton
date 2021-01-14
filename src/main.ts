@@ -1,7 +1,13 @@
 import { startServer } from './server';
 import { mongoConfig, rootConfig } from './util/config';
-import { connectToMongo } from './util/data/mongoClient';
+import { connectToMongo } from './util/data/mongo.adapter';
 import { logger } from './util/logger';
+
+enum processExitCodes {
+  ok = 1,
+  hadledError = 2,
+  uncaughtException = 3,
+}
 
 async function init() {
   try {
@@ -14,12 +20,12 @@ async function init() {
     logger.http(`Server started ${JSON.stringify(server.address())}`);
   } catch (error) {
     logger.fatal(error);
-    process.exit(2);
+    process.exit(processExitCodes.hadledError);
   }
 }
 process.on('uncaughtException', (error: Error) => {
   logger.fatal(error);
-  process.exit(3);
+  process.exit(processExitCodes.uncaughtException);
 });
 
 init();

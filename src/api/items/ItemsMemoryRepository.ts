@@ -1,8 +1,9 @@
 import { MemoryRepository } from '../../util/data/MemoryRepository';
+import { Item } from './Item';
 
-export class ItemsMemoryRepository extends MemoryRepository {
+export class ItemsMemoryRepository extends MemoryRepository<Item> {
   constructor() {
-    const collection = [
+    const collection: Item[] = [
       {
         id: '1',
         categoryId: '1',
@@ -28,7 +29,7 @@ export class ItemsMemoryRepository extends MemoryRepository {
 
     super(collection);
   }
-  public selectByCategoryId(id: string): unknown {
+  public selectByCategoryId(id: string): Item[] {
     return this.collection.filter(x => x.categoryId === id);
   }
 }

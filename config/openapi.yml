@@ -102,6 +102,40 @@ paths:
           $ref: '#/components/responses/200'
         404:
           $ref: '#/components/responses/404'
+  /users:
+    post:
+      description: Adds a User to the list
+      operationId: postUser
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        409:
+          $ref: '#/components/responses/400'
+  /users/{id}:
+    get:
+      description: Get a User by Id
+      operationId: getUserById
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+    put:
+      description: Updates a User at the list
+      operationId: putUser
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+    delete:
+      description: Deletes a User from the list
+      operationId: deleteUser
+      responses:
+        204:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
   /test:
     get:
       description: Used as smoke test. Should return OK

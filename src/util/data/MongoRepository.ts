@@ -21,7 +21,10 @@ export class MongoRepository<T> implements Repository<T> {
   }
 
   public async selectById(id: string): Promise<T | null> {
-    return await this.getCollection().findOne<T>(this.getKeyQuery(id), { projection: { _id: 0 } });
+    const projection = {
+      projection: { _id: 0 },
+    };
+    return await this.getCollection().findOne<T>(this.getKeyQuery(id), projection);
   }
 
   public async insert(toAdd: T): Promise<T> {

@@ -5,7 +5,7 @@ import {
   sendNotFound,
   sendSuccess,
 } from '../../util/app/responseSenders';
-import { getById, remove } from '../../util/data/crud.controller';
+import { getById, put, remove } from '../../util/data/crud.controller';
 import { User } from './User';
 import { activateUser, registerUser } from './users.domain';
 import { usersRepository as repository } from './users.repository.factory';
@@ -32,14 +32,23 @@ export async function postUser(
     next(err);
   }
 }
+
 export async function putUser(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ): Promise<void> {
+  put(req, res, next, repository);
+}
+
+export async function putUserActivation(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+): Promise<void> {
   try {
-    const userToActivate = req.body as User;
-    const activatedUser = await activateUser(userToActivate);
+    const userActivationTokenB64 = req.query.uat as string;
+    const activatedUser = await activateUser(userActivationTokenB64);
     if (activatedUser) {
       sendSuccess(res, activatedUser);
     } else {

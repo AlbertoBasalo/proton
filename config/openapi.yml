@@ -111,6 +111,22 @@ paths:
           $ref: '#/components/responses/201'
         409:
           $ref: '#/components/responses/400'
+  /users/activations:
+    put:
+      description: Updates a User activation state
+      operationId: putUserActivation
+      parameters:
+        - in: query
+          name: uat
+          required: true
+          schema:
+            type: string
+          description: User Token
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
   /users/{id}:
     get:
       description: Get a User by Id

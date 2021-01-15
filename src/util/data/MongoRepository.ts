@@ -21,7 +21,10 @@ export class MongoRepository<T> implements Repository<T> {
   }
 
   public async selectById(id: string): Promise<T | null> {
-    return await this.getCollection().findOne<T>(this.getKeyQuery(id), { projection: { _id: 0 } });
+    const projection = {
+      projection: { _id: 0 },
+    };
+    return await this.getCollection().findOne<T>(this.getKeyQuery(id), projection);
   }
 
   public async insert(toAdd: T): Promise<T> {
@@ -33,7 +36,9 @@ export class MongoRepository<T> implements Repository<T> {
     return { _id: result.insertedId, ...toAdd };
   }
   public async update(id: string, toUpdate: Partial<T>): Promise<T> {
-    const result = await this.getCollection().findOneAndReplace(this.getKeyQuery(id), toUpdate);
+    const result = await this.getCollection().findOneAndReplace(this.getKeyQuery(id), toUpdate, {
+      returnOriginal: false,
+    });
     if (result['value']) {
       return { ...result['value'] };
     } else {

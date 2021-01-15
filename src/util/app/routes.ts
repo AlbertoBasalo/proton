@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as OpenApiValidator from 'express-openapi-validator';
 import { Express } from 'express-serve-static-core';
 import { connector, summarise } from 'swagger-routes-express';
@@ -6,6 +5,7 @@ import YAML from 'yamljs';
 import * as api from '../../api';
 import { routerConfig } from '../config';
 import { logger } from '../logger';
+import { processAuthToken } from './auth';
 
 const YAMLSpecFile = routerConfig.openApi;
 const validatorOptions = {
@@ -23,7 +23,11 @@ function validateApiDefinition(app: Express) {
 }
 
 function connectApiToControllers(apiDefinition: any, app: Express) {
-  const connect = connector(api, apiDefinition);
+  const connect = connector(api, apiDefinition, {
+    security: {
+      bearerAuth: processAuthToken,
+    },
+  });
   connect(app);
 }
 

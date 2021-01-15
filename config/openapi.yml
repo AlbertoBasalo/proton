@@ -16,9 +16,13 @@ paths:
     post:
       description: Adds a Category to the list
       operationId: postCategory
+      security:
+        - bearerAuth: []
       responses:
         201:
           $ref: '#/components/responses/201'
+        401:
+          $ref: '#/components/responses/401'
         409:
           $ref: '#/components/responses/400'
   /categories/{id}:
@@ -33,17 +37,25 @@ paths:
     put:
       description: Updates a Category at the list
       operationId: putCategory
+      security:
+        - bearerAuth: []
       responses:
         200:
           $ref: '#/components/responses/200'
+        401:
+          $ref: '#/components/responses/401'
         404:
           $ref: '#/components/responses/404'
     delete:
       description: Deletes a Category from the list
       operationId: deleteCategory
+      security:
+        - bearerAuth: []
       responses:
         204:
           $ref: '#/components/responses/200'
+        401:
+          $ref: '#/components/responses/401'
         404:
           $ref: '#/components/responses/404'
   /categories/{id}/items:
@@ -72,6 +84,8 @@ paths:
     post:
       description: Adds a Item to the list
       operationId: postItem
+      security:
+        - bearerAuth: []
       responses:
         201:
           $ref: '#/components/responses/201'
@@ -89,6 +103,8 @@ paths:
     put:
       description: Updates a Item at the list
       operationId: putItem
+      security:
+        - bearerAuth: []
       responses:
         200:
           $ref: '#/components/responses/200'
@@ -97,6 +113,64 @@ paths:
     delete:
       description: Deletes a Item from the list
       operationId: deleteItem
+      security:
+        - bearerAuth: []
+      responses:
+        204:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+  /users:
+    post:
+      description: Adds a User to the list
+      operationId: postUser
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        409:
+          $ref: '#/components/responses/400'
+  /users/activations:
+    put:
+      description: Updates a User activation state
+      operationId: putUserActivation
+      parameters:
+        - in: query
+          name: uat
+          required: true
+          schema:
+            type: string
+          description: User Token
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+  /users/{id}:
+    get:
+      description: Get a User by Id
+      operationId: getUserById
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+    put:
+      description: Updates a User at the list
+      operationId: putUser
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+    delete:
+      description: Deletes a User from the list
+      operationId: deleteUser
+      security:
+        - bearerAuth: []
       responses:
         204:
           $ref: '#/components/responses/200'
@@ -111,6 +185,10 @@ paths:
           $ref: '#/components/responses/200'
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
   responses:
     '200':
       description: Successful call

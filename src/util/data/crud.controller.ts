@@ -1,9 +1,11 @@
 import * as express from 'express';
 import { Repository } from '../../models/Repository';
+import { isForbidden, setOwner } from '../app/auth';
 import {
   sendConflict,
   sendCreated,
   sendEmpty,
+  sendForbidden,
   sendNotFound,
   sendSuccess,
 } from '../app/responseSenders';
@@ -49,6 +51,7 @@ export async function post<T>(
 ): Promise<void> {
   try {
     const toAdd = req.body;
+    setOwner(req, toAdd);
     const added = await repository.insert(toAdd);
     if (added) {
       sendCreated(res, added);
@@ -68,13 +71,16 @@ export async function put<T>(
 ): Promise<void> {
   try {
     const id = req.params.id;
-    const toUpdate = req.body;
-    const updated = await repository.update(id, toUpdate);
-    if (updated) {
-      sendSuccess(res, updated);
-    } else {
-      sendNotFound(res);
+    const toUpdate = await repository.selectById(id);
+    if (!toUpdate) return sendNotFound(res);
+    if (isForbidden(req, toUpdate)) {
+      return sendForbidden(res);
     }
+    const payload = req.body;
+    payload.id = toUpdate['id'];
+    payload.ownerId = toUpdate['ownerId'];
+    const updated = await repository.update(id, payload);
+    sendSuccess(res, updated);
   } catch (err) {
     next(err);
   }
@@ -88,12 +94,13 @@ export async function remove<T>(
 ): Promise<void> {
   try {
     const id = req.params.id;
-    const removed = await repository.delete(id);
-    if (removed) {
-      sendEmpty(res);
-    } else {
-      sendNotFound(res);
+    const toDelete = await repository.selectById(id);
+    if (!toDelete) return sendNotFound(res);
+    if (isForbidden(req, toDelete)) {
+      return sendForbidden(res);
     }
+    await repository.delete(id);
+    sendEmpty(res);
   } catch (err) {
     next(err);
   }

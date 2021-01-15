@@ -16,9 +16,13 @@ paths:
     post:
       description: Adds a Category to the list
       operationId: postCategory
+      security:
+        - bearerAuth: []
       responses:
         201:
           $ref: '#/components/responses/201'
+        401:
+          $ref: '#/components/responses/401'
         409:
           $ref: '#/components/responses/400'
   /categories/{id}:
@@ -33,17 +37,25 @@ paths:
     put:
       description: Updates a Category at the list
       operationId: putCategory
+      security:
+        - bearerAuth: []
       responses:
         200:
           $ref: '#/components/responses/200'
+        401:
+          $ref: '#/components/responses/401'
         404:
           $ref: '#/components/responses/404'
     delete:
       description: Deletes a Category from the list
       operationId: deleteCategory
+      security:
+        - bearerAuth: []
       responses:
         204:
           $ref: '#/components/responses/200'
+        401:
+          $ref: '#/components/responses/401'
         404:
           $ref: '#/components/responses/404'
   /categories/{id}/items:
@@ -161,6 +173,10 @@ paths:
           $ref: '#/components/responses/200'
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
   responses:
     '200':
       description: Successful call

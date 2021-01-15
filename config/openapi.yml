@@ -84,6 +84,8 @@ paths:
     post:
       description: Adds a Item to the list
       operationId: postItem
+      security:
+        - bearerAuth: []
       responses:
         201:
           $ref: '#/components/responses/201'
@@ -101,6 +103,8 @@ paths:
     put:
       description: Updates a Item at the list
       operationId: putItem
+      security:
+        - bearerAuth: []
       responses:
         200:
           $ref: '#/components/responses/200'
@@ -109,6 +113,8 @@ paths:
     delete:
       description: Deletes a Item from the list
       operationId: deleteItem
+      security:
+        - bearerAuth: []
       responses:
         204:
           $ref: '#/components/responses/200'
@@ -143,6 +149,8 @@ paths:
     get:
       description: Get a User by Id
       operationId: getUserById
+      security:
+        - bearerAuth: []
       responses:
         200:
           $ref: '#/components/responses/200'
@@ -151,6 +159,8 @@ paths:
     put:
       description: Updates a User at the list
       operationId: putUser
+      security:
+        - bearerAuth: []
       responses:
         200:
           $ref: '#/components/responses/200'
@@ -159,6 +169,8 @@ paths:
     delete:
       description: Deletes a User from the list
       operationId: deleteUser
+      security:
+        - bearerAuth: []
       responses:
         204:
           $ref: '#/components/responses/200'

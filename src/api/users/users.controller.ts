@@ -1,7 +1,9 @@
 import * as express from 'express';
+import { isForbidden } from '../../util/app/auth';
 import {
   sendConflict,
   sendCreated,
+  sendForbidden,
   sendNotFound,
   sendSuccess,
 } from '../../util/app/responseSenders';
@@ -15,6 +17,11 @@ export function getUserById(
   res: express.Response,
   next: express.NextFunction
 ): void {
+  const id = req.params.id;
+  const fakeTargetToCheckOwnership = { ownerId: id };
+  if (isForbidden(req, fakeTargetToCheckOwnership)) {
+    return sendForbidden(res);
+  }
   getById(req, res, next, repository);
 }
 
@@ -48,9 +55,9 @@ export async function putUserActivation(
 ): Promise<void> {
   try {
     const userActivationTokenB64 = req.query.uat as string;
-    const activatedUser = await activateUser(userActivationTokenB64);
-    if (activatedUser) {
-      sendSuccess(res, activatedUser);
+    const userSessionToken = await activateUser(userActivationTokenB64);
+    if (userSessionToken) {
+      sendSuccess(res, userSessionToken);
     } else {
       sendNotFound(res, 'Invalid activation token');
     }

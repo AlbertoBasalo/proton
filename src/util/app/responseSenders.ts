@@ -20,6 +20,10 @@ export function sendConflict(res: express.Response, message = 'Conflict with cur
   res.status(httpStatus.CONFLICT).json({ message });
 }
 
+export function sendForbidden(res: express.Response, message = 'Not enough permissions'): void {
+  res.status(httpStatus.FORBIDDEN).json({ message });
+}
+
 export function sendError(res: express.Response, message = 'Internal Error'): void {
   res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message });
 }

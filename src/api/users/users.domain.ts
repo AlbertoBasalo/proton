@@ -1,6 +1,9 @@
+import { nanoid } from 'nanoid';
 import { generateToken } from '../../util/app/auth';
 import { getB64FromObject, getObjectFromB64 } from '../../util/buffer';
+import { rootConfig } from '../../util/config';
 import { logger } from '../../util/logger';
+import { sendMail } from '../../util/sendmail';
 import { User } from './User';
 import { usersRepository } from './users.repository.factory';
 
@@ -10,8 +13,20 @@ export async function registerUser(userToRegister: User): Promise<User | null> {
   const registeredUser = await usersRepository.insert(userToRegister);
   if (registeredUser) {
     const userActivationToken = getUserActivationToken(registeredUser);
-    logger.warn(`📧 Sending ${userActivationToken} to ${registeredUser.email}`);
+    await sendActivationTokenByEmail(userActivationToken, registeredUser.email);
     return registeredUser;
+  } else {
+    return null;
+  }
+}
+
+export async function activateUser(userActivationTokenB64: string): Promise<string | null> {
+  const userToActivate: Partial<User> = getObjectFromB64(userActivationTokenB64);
+  const registeredUser = await usersRepository.selectById(userToActivate.id);
+  if (registeredUser && registeredUser.atk === userToActivate.atk) {
+    setSessionToken(registeredUser);
+    await usersRepository.update(registeredUser.id, registeredUser);
+    return getToken(registeredUser);
   } else {
     return null;
   }
@@ -30,35 +45,33 @@ function setUserIdFrom(userToRegister: User) {
 }
 
 function setUserActivationTokenId(userToRegister: User) {
-  userToRegister.atk = new Date().getTime().toString();
-}
-
-export async function activateUser(userActivationTokenB64: string): Promise<string | null> {
-  const userToActivate: Partial<User> = getObjectFromB64(userActivationTokenB64);
-  const registeredUser = await usersRepository.selectById(userToActivate.id);
-  if (registeredUser && registeredUser.atk === userToActivate.atk) {
-    setSessionToken(registeredUser);
-    await usersRepository.update(registeredUser.id, registeredUser);
-    return getToken(registeredUser);
-  } else {
-    return null;
-  }
+  userToRegister.atk = nanoid();
 }
 
 function getUserActivationToken(registeredUser: User) {
   const userActivationPayload = getUserActivationPayload(registeredUser);
-  const userActivationToken = getB64FromObject(userActivationPayload);
-  return userActivationToken;
+  return getB64FromObject(userActivationPayload);
+}
+
+async function sendActivationTokenByEmail(userActivationToken: string, userEmail: string) {
+  logger.warn(`📧 Sending ${userActivationToken} to ${userEmail}`);
+  const server = `${rootConfig.serverDomain}:${rootConfig.port}`;
+  const apiSegment = 'api/v1/users/activations';
+  const tokenURL = `${server}/${apiSegment}?uat=${userActivationToken}`;
+  const mailContent = `
+      <p>Click here to activate your account</p>
+      <a href="${tokenURL}">${userActivationToken}</a>`;
+  const mailSubject = 'Your activation token';
+  await sendMail(userEmail, mailSubject, mailContent);
 }
 
 function setSessionToken(registeredUser: User) {
-  registeredUser.stk = new Date().getTime().toString();
+  registeredUser.stk = nanoid();
 }
 
 function getToken(registeredUser: User) {
   const payload = { id: registeredUser.id, stk: registeredUser.stk };
-  const tokenPayload = generateToken(payload);
-  return tokenPayload;
+  return generateToken(payload);
 }
 
 function getUserActivationPayload(registeredUser: User) {

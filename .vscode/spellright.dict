@@ -24,3 +24,6 @@ IntelliCode
 albertobasalo
 jsonwebtoken
 auth
+nodemailer
+gmail
+sendmail

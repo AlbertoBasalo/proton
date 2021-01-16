@@ -30,6 +30,17 @@ export const routerConfig = {
   morganTrace: ':method :url :status :response-time ms - :res[content-length]',
 };
 
+export const emailConfig = {
+  service: process.env.EMAIL_SERVICE || 'gmail',
+  host: process.env.EMAIL_HOST || 'smtp.googlemail.com',
+  port: process.env.EMAIL_PORT || 465,
+  secure: process.env.EMAIL_SECURE || true,
+  user: process.env.EMAIL_USER || 'your.email@gmail.com',
+  password: process.env.EMAIL_PASSWORD || 'YourPassword',
+  senderName: process.env.EMAIL_SENDER_NAME || 'Sender name',
+  senderEmail: process.env.EMAIL_SENDER_EMAIL || 'sender@gmail.com',
+};
+
 export const mongoConfig = {
   connect: process.env.MONGO_CONNECT || false,
   uri: process.env.MONGO_URI || '',

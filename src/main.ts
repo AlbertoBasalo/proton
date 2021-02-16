@@ -10,6 +10,7 @@ enum processExitCodes {
 }
 
 async function init() {
+  logger.dump('INITIAL');
   try {
     logger.dump(rootConfig);
     if (mongoConfig.connect) {
@@ -27,5 +28,7 @@ process.on('uncaughtException', (error: Error) => {
   logger.fatal(error);
   process.exit(processExitCodes.uncaughtException);
 });
+
+console.log(process.cwd());
 
 init();

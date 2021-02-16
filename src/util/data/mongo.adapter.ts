@@ -6,5 +6,11 @@ export const mongoClient = new MongoClient(mongoConfig.uri, {
 });
 
 export async function connectToMongo(): Promise<unknown> {
-  return await mongoClient.connect();
+  try {
+    console.log('connecting to: ' + mongoConfig.uri);
+    return await mongoClient.connect();
+  } catch (err) {
+    console.log('Mongo Error');
+    console.log(err);
+  }
 }

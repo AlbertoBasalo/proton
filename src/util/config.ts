@@ -3,8 +3,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { LoggerConfig } from '../models/LoggerConfig';
 import { RootConfig } from '../models/RootConfig';
-const ENV = process.env.NODE_ENV || 'development';
-//const ASSETS = (true || ENV === 'development') ? './dist/apps/api/assets/' : '/assets/';
 const ASSETS = './config/';
 const DEFAULT_PORT = 3000;
 export type LogLevel = 'error' | 'warn' | 'info' | 'http' | 'verbose' | 'debug' | 'silly';
@@ -13,6 +11,10 @@ initializeConfig();
 
 function initializeConfig() {
   console.log(process.cwd());
+  if (process.env.SYSTEM === 'heroku') {
+    console.log('Running on Heroku!');
+    return;
+  }
   console.log(path.resolve(`${ASSETS}.env`));
   if (fs.existsSync(`${ASSETS}.env`)) {
     console.info('Using .env file to supply config environment variables');

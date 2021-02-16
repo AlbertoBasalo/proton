@@ -40,16 +40,16 @@ class Logger {
     this.logger.debug(message);
   }
   public http(message: string) {
-    this.logger.http(message);
+    this.logger.http(`: ${message}`);
   }
   public info(message: string) {
-    this.logger.info(message);
+    this.logger.info(`· ${message}`);
   }
   public dump(object: unknown) {
     this.logger.info(object);
   }
   public warn(message: string) {
-    this.logger.warn(message);
+    this.logger.warn(`! ${message}`);
   }
   public async error(err: Error): Promise<void> {
     try {

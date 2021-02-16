@@ -1,16 +1,22 @@
-import dotenv from 'dotenv';
-import fs from 'fs';
+import * as dotenv from 'dotenv';
+import * as fs from 'fs';
+import * as path from 'path';
 import { LoggerConfig } from '../models/LoggerConfig';
 import { RootConfig } from '../models/RootConfig';
+const ENV = process.env.NODE_ENV || 'development';
+//const ASSETS = (true || ENV === 'development') ? './dist/apps/api/assets/' : '/assets/';
+const ASSETS = './config/';
 const DEFAULT_PORT = 3000;
 export type LogLevel = 'error' | 'warn' | 'info' | 'http' | 'verbose' | 'debug' | 'silly';
 
 initializeConfig();
 
 function initializeConfig() {
-  if (fs.existsSync('./config/.env')) {
+  console.log(process.cwd());
+  console.log(path.resolve(`${ASSETS}.env`));
+  if (fs.existsSync(`${ASSETS}.env`)) {
     console.info('Using .env file to supply config environment variables');
-    dotenv.config({ path: './config/.env' });
+    dotenv.config({ path: `${ASSETS}.env` });
   } else {
     console.warn(
       '.env file not found see .env.example file to supply data for your environment variables. Using default values instead. '
@@ -26,7 +32,7 @@ export const loggerConfig: LoggerConfig = {
 };
 
 export const routerConfig = {
-  openApi: process.env.OPEN_API || './config/openapi.yml',
+  openApi: process.env.OPEN_API || `${ASSETS}openapi.yml`,
   morganTrace: ':method :url :status :response-time ms - :res[content-length]',
 };
 

@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/AtomicBuilders/proton/compare/v1.5.0...v1.6.0) (2021-02-16)
+
+
+### Features
+
+* minor log and config enhancement ([6ec3369](https://github.com/AtomicBuilders/proton/commit/6ec336994fcc474a8235a9fe8610b7d23a6c6ab1))
+
+
+### Bug Fixes
+
+* mongo db connection ([ab3c848](https://github.com/AtomicBuilders/proton/commit/ab3c84880df502c751db978da7892ba5cbab496a))
+* more logs and exclude test ([6706415](https://github.com/AtomicBuilders/proton/commit/6706415e1fab22e26df0b00a5a667194863edab6))
+
 ## [1.5.0](https://github.com/AtomicBuilders/proton/compare/v1.4.0...v1.5.0) (2021-02-16)
 
 

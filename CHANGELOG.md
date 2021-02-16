@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/AtomicBuilders/proton/compare/v1.4.0...v1.5.0) (2021-02-16)
+
+
+### Features
+
+* prepared to first release ([ebd0b0a](https://github.com/AtomicBuilders/proton/commit/ebd0b0a1d294b077567425601d881ea46416b772))
+* Send email Closes [#27](https://github.com/AtomicBuilders/proton/issues/27) ([75a4202](https://github.com/AtomicBuilders/proton/commit/75a42021d64666688a7621a5b265c34d7ab9c31e))
+* Static typing and generics ([331519a](https://github.com/AtomicBuilders/proton/commit/331519a12e378dea4970502950731f55948e9306)), closes [#20](https://github.com/AtomicBuilders/proton/issues/20)
+* User activation token - Closes [#25](https://github.com/AtomicBuilders/proton/issues/25) ([ae6c3e5](https://github.com/AtomicBuilders/proton/commit/ae6c3e54b711e93da5e33fe27715dc436d39becf))
+* users entity - Closes [#23](https://github.com/AtomicBuilders/proton/issues/23) ([46bfb1e](https://github.com/AtomicBuilders/proton/commit/46bfb1ec7f6299a45d71fa53ed7f01e48b20929f))
+* users tokens and basic security Closes [#23](https://github.com/AtomicBuilders/proton/issues/23) [#24](https://github.com/AtomicBuilders/proton/issues/24) [#25](https://github.com/AtomicBuilders/proton/issues/25) [#22](https://github.com/AtomicBuilders/proton/issues/22) ([8281c68](https://github.com/AtomicBuilders/proton/commit/8281c68e4e762b38678bda8a155c66996364861f))
+
 ## [1.4.0](https://github.com/AtomicBuilders/proton/compare/v1.3.1...v1.4.0) (2021-01-13)
 
 

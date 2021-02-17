@@ -27,3 +27,4 @@ auth
 nodemailer
 gmail
 sendmail
+cors

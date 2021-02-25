@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/AtomicBuilders/proton/compare/v1.6.0...v1.7.0) (2021-02-25)
+
+
+### Features
+
+* count items by category ([245bb1b](https://github.com/AtomicBuilders/proton/commit/245bb1b85bc02112c4b62c68325a553184a9108d))
+* Enable-CORS - Closes [#30](https://github.com/AtomicBuilders/proton/issues/30) ([60851b6](https://github.com/AtomicBuilders/proton/commit/60851b65b87924b61ec6efa64418e492a78e6fbf))
+
 ## [1.6.0](https://github.com/AtomicBuilders/proton/compare/v1.5.0...v1.6.0) (2021-02-16)
 
 

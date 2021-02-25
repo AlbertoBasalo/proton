@@ -36,7 +36,22 @@ export async function getItemsByCategoryId(
   next: express.NextFunction
 ): Promise<void> {
   const categoryId = req.params.id;
+  console.log('getItemsByCategoryId: ' + categoryId);
   const result = await repository.selectByCategoryId(categoryId);
+  if (result) {
+    sendSuccess(res, result);
+  } else {
+    sendNotFound(res);
+  }
+}
+
+export async function getItemsMetadataByCategoryId(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+): Promise<void> {
+  const categoryId = req.params.id;
+  const result = await repository.countByCategoryId(categoryId);
   if (result) {
     sendSuccess(res, result);
   } else {

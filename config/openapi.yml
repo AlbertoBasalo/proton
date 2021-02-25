@@ -67,6 +67,15 @@ paths:
           $ref: '#/components/responses/200'
         404:
           $ref: '#/components/responses/404'
+  /categories/{id}/items/count:
+    get:
+      description: Get Metadata of Items by CategoryId
+      operationId: getItemsMetadataByCategoryId
+      responses:
+        206:
+          $ref: '#/components/responses/206'
+        404:
+          $ref: '#/components/responses/404'
   /items:
     get:
       description: Get the Item list
@@ -208,6 +217,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/204'
+    '206':
+      description: Partial Content
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/206'
     '400':
       description: Bad request. Check your parameters or payload.
       content:
@@ -242,6 +257,9 @@ components:
       type: object
     204:
       title: Successful deleted response
+    206:
+      title: Partial Content
+      type: object
     400:
       title: Request error response
       type: object

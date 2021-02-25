@@ -32,4 +32,7 @@ export class ItemsMemoryRepository extends MemoryRepository<Item> {
   public selectByCategoryId(id: string): Item[] {
     return this.collection.filter(x => x.categoryId === id);
   }
+  public countByCategoryId(id: string): number {
+    return this.collection.filter(x => x.categoryId === id).length;
+  }
 }

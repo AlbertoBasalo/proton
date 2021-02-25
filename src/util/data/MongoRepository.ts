@@ -53,6 +53,11 @@ export class MongoRepository<T> implements Repository<T> {
       return false;
     }
   }
+
+  public async countByQuery(query: FilterQuery<T>): Promise<number> {
+    return this.getCollection().count(query);
+  }
+
   private getKeyQuery(id: string): FilterQuery<T | { _id: unknown }> {
     return { id: id };
   }

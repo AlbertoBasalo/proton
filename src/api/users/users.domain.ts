@@ -46,7 +46,9 @@ function setUserActivationTokenId(userToRegister: User) {
 
 export async function activateUser(userActivationTokenB64: string): Promise<string | null> {
   const userToActivate: Partial<User> = getObjectFromB64(userActivationTokenB64);
+  console.log({ userToActivate });
   const registeredUser = await usersRepository.selectById(userToActivate.id);
+  console.log({ registeredUser });
   if (registeredUser && registeredUser.atk === userToActivate.atk) {
     setSessionToken(registeredUser);
     await usersRepository.update(registeredUser.id, registeredUser);

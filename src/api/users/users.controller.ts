@@ -55,6 +55,7 @@ export async function putUserActivation(
 ): Promise<void> {
   try {
     const userActivationTokenB64 = req.query.uat as string;
+    console.log({ userActivationTokenB64 });
     const userSessionToken = await activateUser(userActivationTokenB64);
     if (userSessionToken) {
       sendSuccess(res, userSessionToken);

@@ -7,7 +7,13 @@ import { usersRepository } from './users.repository.factory';
 export async function registerUser(userToRegister: User): Promise<User | null> {
   setUserIdFrom(userToRegister);
   setUserActivationTokenId(userToRegister);
-  const registeredUser = await usersRepository.insert(userToRegister);
+  const alreadyUsers = await getAleadyRegistered(userToRegister);
+  let registeredUser: User = null;
+  if (alreadyUsers && alreadyUsers[0]) {
+    registeredUser = alreadyUsers[0];
+  } else {
+    registeredUser = await usersRepository.insert(userToRegister);
+  }
   if (registeredUser) {
     const userActivationToken = getUserActivationToken(registeredUser);
     logger.warn(`📧 Sending ${userActivationToken} to ${registeredUser.email}`);
@@ -15,6 +21,10 @@ export async function registerUser(userToRegister: User): Promise<User | null> {
   } else {
     return null;
   }
+}
+
+async function getAleadyRegistered(userToCheck: User): Promise<User[] | null> {
+  return usersRepository.selectByQuery({ email: userToCheck.email });
 }
 
 function setUserIdFrom(userToRegister: User) {

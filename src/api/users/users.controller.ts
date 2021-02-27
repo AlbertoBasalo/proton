@@ -34,7 +34,7 @@ export async function postUser(
     const userToRegister = req.body as User;
     const registeredUser = await registerUser(userToRegister);
     if (registeredUser) sendCreated(res, registeredUser);
-    else sendConflict(res, 'User could not be registered');
+    else sendConflict(res, 'User already registered');
   } catch (err) {
     next(err);
   }

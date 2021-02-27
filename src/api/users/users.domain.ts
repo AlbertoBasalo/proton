@@ -17,6 +17,7 @@ export async function registerUser(userToRegister: User): Promise<User | null> {
   if (registeredUser) {
     const userActivationToken = getUserActivationToken(registeredUser);
     logger.warn(`📧 Sending ${userActivationToken} to ${registeredUser.email}`);
+    registeredUser.atk = userActivationToken;
     return registeredUser;
   } else {
     return null;

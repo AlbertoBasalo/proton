@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/AtomicBuilders/proton/compare/v1.7.0...v1.8.0) (2021-02-28)
+
+
+### Features
+
+* add Id if no present ([1222d4e](https://github.com/AtomicBuilders/proton/commit/1222d4e4346facd486997fb02d82e4ea9e6b652b))
+
+
+### Bug Fixes
+
+* check conflicts and add id when needed ([6a5084d](https://github.com/AtomicBuilders/proton/commit/6a5084d3613a977d05b85f26b3d198e3ccab43d4))
+* temporal hack user atk ([91b1728](https://github.com/AtomicBuilders/proton/commit/91b17284cfbd1f61e5bd5cff94db8d671d2e91ed))
+
 ## [1.7.0](https://github.com/AtomicBuilders/proton/compare/v1.6.0...v1.7.0) (2021-02-25)
 
 

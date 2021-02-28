@@ -51,7 +51,6 @@ export async function post<T>(
 ): Promise<void> {
   try {
     const toAdd = req.body;
-    console.log('adding: ' + toAdd);
     setId(req, toAdd);
     setOwner(req, toAdd);
     const added = await repository.insert(toAdd);

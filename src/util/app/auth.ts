@@ -54,6 +54,8 @@ export function setOwner(req, target: object) {
   target[ownerProperty] = logedUser.id;
 }
 
+// ToDo: move from auth to a base util lib...
+
 export function setId(req, target: object) {
   const id = target['id'];
   if (!!id) return;

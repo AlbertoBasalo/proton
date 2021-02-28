@@ -29,8 +29,8 @@ export class MongoRepository<T> implements Repository<T> {
 
   public async insert(toAdd: T): Promise<T> {
     const conflict = await this.selectById(toAdd['id']);
+    // ToDo: throw error instead of returning null
     if (conflict) {
-      console.log('conflict: ', conflict);
       return null;
     }
     const result = await this.getCollection().insertOne(toAdd as OptionalId<T>);

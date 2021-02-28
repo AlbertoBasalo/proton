@@ -1,6 +1,6 @@
 import winston from 'winston';
 import { LoggerConfig } from '../models/LoggerConfig';
-import { loggerConfig } from './config';
+import { loggerConfig as configuration } from './config';
 
 class Logger {
   private readonly logger: winston.Logger;
@@ -11,19 +11,19 @@ class Logger {
     }
     return `${entry.timestamp} ${entry.label || '-'} ${entry.level}: ${entry.message}`;
   });
-  constructor(config: LoggerConfig) {
+  constructor(configuration: LoggerConfig) {
     this.logger = winston.createLogger({
-      level: config.level,
-      silent: config.isSilent,
+      level: configuration.level,
+      silent: configuration.isSilent,
       format: winston.format.combine(
         winston.format.colorize(),
         winston.format.prettyPrint(),
         winston.format.splat(),
         winston.format.simple(),
-        winston.format.timestamp({ format: config.timeStamp }),
+        winston.format.timestamp({ format: configuration.timeStamp }),
         this.prettyJson
       ),
-      defaultMeta: { service: config.metaName },
+      defaultMeta: { service: configuration.metaName },
       transports: [new winston.transports.Console({})],
     });
     this.info('Logger running');
@@ -67,4 +67,4 @@ class Logger {
   }
 }
 
-export const logger = new Logger(loggerConfig);
+export const logger = new Logger(configuration);

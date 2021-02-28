@@ -53,3 +53,13 @@ export function setOwner(req, target: object) {
   if (!target) return;
   target[ownerProperty] = logedUser.id;
 }
+
+export function setId(req, target: object) {
+  const id = target['id'];
+  if (!!id) return;
+  if (!!target['name']) {
+    target['id'] = (target['name'] as string).toLocaleLowerCase().replace(' ', '');
+  } else {
+    target['id'] = new Date().getTime().toLocaleString();
+  }
+}

@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { Repository } from '../../models/Repository';
-import { isForbidden, setOwner } from '../app/auth';
+import { isForbidden, setId, setOwner } from '../app/auth';
 import {
   sendConflict,
   sendCreated,
@@ -51,6 +51,8 @@ export async function post<T>(
 ): Promise<void> {
   try {
     const toAdd = req.body;
+    console.log('adding: ' + toAdd);
+    setId(req, toAdd);
     setOwner(req, toAdd);
     const added = await repository.insert(toAdd);
     if (added) {

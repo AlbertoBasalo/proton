@@ -17,7 +17,7 @@ export class TransactionsMemoryRepository extends MemoryRepository<Transaction> 
       {
         id: 'produce_the_virus',
         name: 'produce the virus',
-        description: 'Clone the virus ina secret lab',
+        description: 'Clone the virus in a secret lab',
         kind: 'spent',
         amount: 1200,
         date: new Date(2020, 1, 1),

@@ -64,10 +64,12 @@ export async function validateUser(credentials: {
     .select()
     .find(u => u.email === credentials.email && u.password === credentials.password);
   if (registeredUser) {
+    logger.info(`👮‍♀️ Validated ${credentials.email}`);
     setSessionToken(registeredUser);
     await usersRepository.update(registeredUser.id, registeredUser);
     return getToken(registeredUser);
   } else {
+    logger.warn('🚫 No user found with provided credentials');
     return null;
   }
 }

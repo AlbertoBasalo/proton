@@ -8,4 +8,5 @@ export interface RootConfig {
   serverDomain: string;
   repository: string;
   loggerConfig: LoggerConfig;
+  clientDomain: string;
 }

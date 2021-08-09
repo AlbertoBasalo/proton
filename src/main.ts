@@ -1,5 +1,5 @@
 import { startServer } from './server';
-import { mongoConfig, rootConfig } from './util/config';
+import { rootConfig } from './util/config';
 import { connectToMongo } from './util/data/mongo.adapter';
 import { logger } from './util/logger';
 
@@ -10,11 +10,14 @@ enum processExitCodes {
 }
 
 async function init() {
+  logger.info('Init');
   try {
     logger.dump(rootConfig);
-    if (mongoConfig.connect) {
+    if (rootConfig.repository === 'mongodb') {
+      logger.info('Using Mongo dB repositor');
       await connectToMongo();
-      logger.info('Mongo dB should be connected');
+    } else {
+      logger.info('Using in memory repository');
     }
     const server = await startServer(rootConfig);
     logger.http(`Server started ${JSON.stringify(server.address())}`);

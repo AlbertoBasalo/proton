@@ -63,6 +63,7 @@ export const rootConfig: RootConfig = {
   serverDomain: process.env.SERVER_DOMAIN || 'http://localhost',
   repository: process.env.REPOSITORY || 'memory',
   loggerConfig: loggerConfig,
+  clientDomain: process.env.CLIENT_DOMAIN || 'http://localhost',
 };
 
 function normalizePort(checkingPort: number | string): number {

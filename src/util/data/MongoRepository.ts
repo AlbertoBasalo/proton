@@ -1,4 +1,4 @@
-import { Collection, FilterQuery, OptionalId } from 'mongodb';
+import { Collection, Filter, FindOptions, OptionalId } from 'mongodb';
 import { Repository } from '../../models/Repository';
 import { mongoConfig } from '../config';
 import { mongoClient } from './mongo.adapter';
@@ -14,17 +14,15 @@ export class MongoRepository<T> implements Repository<T> {
     return this.selectByQuery({});
   }
 
-  public selectByQuery(query: FilterQuery<T>): Promise<T[]> {
+  public selectByQuery(query: Filter<T>): Promise<T[]> {
     return this.getCollection()
       .find(query, { projection: { _id: 0 } })
       .toArray();
   }
 
-  public async selectById(id: string): Promise<T | null> {
-    const projection = {
-      projection: { _id: 0 },
-    };
-    return await this.getCollection().findOne<T>(this.getKeyQuery(id), projection);
+  public async selectById(id: string): Promise<T | undefined> {
+    const projection: FindOptions<T> = { projection: { _id: 0 } };
+    return this.getCollection().findOne<T>(this.getKeyQuery(id), projection);
   }
 
   public async insert(toAdd: T): Promise<T> {
@@ -37,8 +35,9 @@ export class MongoRepository<T> implements Repository<T> {
     return { _id: result.insertedId, ...toAdd };
   }
   public async update(id: string, toUpdate: Partial<T>): Promise<T> {
+    const noid = { _id: undefined };
     const result = await this.getCollection().findOneAndReplace(this.getKeyQuery(id), toUpdate, {
-      returnOriginal: false,
+      upsert: false,
     });
     if (result['value']) {
       return { ...result['value'] };
@@ -55,11 +54,11 @@ export class MongoRepository<T> implements Repository<T> {
     }
   }
 
-  public async countByQuery(query: FilterQuery<T>): Promise<number> {
-    return this.getCollection().count(query);
+  public async countByQuery(query: Filter<T>): Promise<number> {
+    return this.getCollection().countDocuments(query);
   }
 
-  private getKeyQuery(id: string): FilterQuery<T | { _id: unknown }> {
+  private getKeyQuery(id: string): Filter<T | { _id: unknown }> {
     return { id: id };
   }
 }

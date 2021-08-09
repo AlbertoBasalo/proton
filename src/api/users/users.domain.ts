@@ -25,7 +25,7 @@ export async function registerUser(userToRegister: User): Promise<User | null> {
 }
 
 async function getAleadyRegistered(userToCheck: User): Promise<User[] | null> {
-  return usersRepository.selectByQuery({ email: userToCheck.email });
+  return usersRepository.select().filter(u => u.email === userToCheck.email);
 }
 
 function setUserIdFrom(userToRegister: User) {
@@ -48,6 +48,22 @@ export async function activateUser(userActivationTokenB64: string): Promise<stri
   const userToActivate: Partial<User> = getObjectFromB64(userActivationTokenB64);
   const registeredUser = await usersRepository.selectById(userToActivate.id);
   if (registeredUser && registeredUser.atk === userToActivate.atk) {
+    setSessionToken(registeredUser);
+    await usersRepository.update(registeredUser.id, registeredUser);
+    return getToken(registeredUser);
+  } else {
+    return null;
+  }
+}
+
+export async function validateUser(credentials: {
+  email: string;
+  password: string;
+}): Promise<string | null> {
+  const registeredUser = await usersRepository
+    .select()
+    .find(u => u.email === credentials.email && u.password === credentials.password);
+  if (registeredUser) {
     setSessionToken(registeredUser);
     await usersRepository.update(registeredUser.id, registeredUser);
     return getToken(registeredUser);

@@ -9,7 +9,7 @@ import {
 } from '../../util/app/responseSenders';
 import { getById, put, remove } from '../../util/data/crud.controller';
 import { User } from './User';
-import { activateUser, registerUser } from './users.domain';
+import { activateUser, registerUser, validateUser } from './users.domain';
 import { usersRepository as repository } from './users.repository.factory';
 
 export function getUserById(
@@ -23,6 +23,24 @@ export function getUserById(
     return sendForbidden(res);
   }
   getById(req, res, next, repository);
+}
+
+export async function getUserSessionByCredentials(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+): Promise<void> {
+  try {
+    const credentials = req.body;
+    const userSessionToken = await validateUser(credentials);
+    if (userSessionToken) {
+      sendSuccess(res, userSessionToken);
+    } else {
+      sendNotFound(res, 'Invalid credentials');
+    }
+  } catch (err) {
+    next(err);
+  }
 }
 
 export async function postUser(

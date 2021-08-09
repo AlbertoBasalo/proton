@@ -5,25 +5,28 @@ export class TaksMemoryRepository extends MemoryRepository<Task> {
   constructor() {
     const collection: Task[] = [
       {
-        id: '1',
+        id: 'create_a_virus',
         name: 'Create a virus',
         description: 'A modified version of a current virus',
         done: true,
-        projectId: '1',
+        projectId: 'rule_the_world',
+        ownerId: 'world_admin',
       },
       {
-        id: '2',
+        id: 'deploy_the_virus',
         name: 'Deploy the virus',
-        description: 'Release the evironment on a cute pet',
+        description: 'Release the virus to the evironment on a cute pet',
         done: true,
-        projectId: '1',
+        projectId: 'rule_the_world',
+        ownerId: 'world_admin',
       },
       {
-        id: '3',
+        id: 'have_a_rocket',
         name: 'Have a rocket',
         description: 'A very big rocket ',
         done: false,
-        projectId: '2',
+        projectId: 'conquer_mars',
+        ownerId: 'world_admin',
       },
     ];
 

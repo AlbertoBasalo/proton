@@ -348,6 +348,15 @@ paths:
           $ref: '#/components/responses/200'
         404:
           $ref: '#/components/responses/404'
+  /users/credentials:
+    get:
+      description: Gets a User session by credentials
+      operationId: getUserSessionByCredentials
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
   /users/{id}:
     get:
       description: Get a User by Id

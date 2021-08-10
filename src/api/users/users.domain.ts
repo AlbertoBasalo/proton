@@ -60,9 +60,7 @@ export async function validateUser(credentials: {
   email: string;
   password: string;
 }): Promise<string | null> {
-  logger.info(`🔐 Validating ${credentials.email}`);
   const users = await usersRepository.select();
-  logger.info(`🔎 Found ${users.length} users`);
   const registeredUser = users.find(
     u => u.email === credentials.email && u.password === credentials.password
   );

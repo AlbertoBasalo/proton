@@ -1,0 +1,17 @@
+
+POST http://localhost:3000/v1/projects HTTP/1.1
+content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IndvcmxkX2FkbWluIiwic3RrIjoiMTYyODU5MjIxMzk1OSIsImlhdCI6MTYyODU5MjIxM30.QmbQwfmu0wLRczQEm0OcEcuS9gPV1M7G9Um8L4laYkE
+
+{
+    "name": "Authorized",
+    "description": "Is only for testing",
+    "startDate": "2025-01-01T23:00:00.000Z",
+    "budget":   1000,
+    "status": "active",
+    "id": "authorized"
+}
+
+###
+
+GET http://localhost:3000/v1/projects HTTP/1.1

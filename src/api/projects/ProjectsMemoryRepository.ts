@@ -23,7 +23,6 @@ export class ProjectsMemoryRepository extends MemoryRepository<Project> {
         status: 'plan',
         ownerId: 'world_admin',
       },
-      ,
     ];
 
     super(collection);

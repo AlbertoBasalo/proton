@@ -1,0 +1,12 @@
+
+POST http://localhost:3000/v1/projects HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Not authorized",
+    "description": "Is only for testing",
+    "startDate": "2025-01-01T23:00:00.000Z",
+    "budget":   1000,
+    "status": "active",
+    "id": "not-authorized"
+}

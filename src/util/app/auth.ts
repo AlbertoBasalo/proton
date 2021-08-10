@@ -17,6 +17,7 @@ export function processAuthToken(
     next();
   } catch (err) {
     setUserToken(req, null);
+    err.status = 400;
     next(err);
   }
 }

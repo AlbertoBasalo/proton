@@ -6,3 +6,11 @@ content-type: application/json
 
 GET http://localhost:3000/v1/projects/rule_the_world HTTP/1.1
 
+
+###
+
+GET http://localhost:3000/v1/projects/rule_the_world/tasks/ HTTP/1.1
+
+###
+
+GET http://localhost:3000/v1/projects/rule_the_world/transactions/ HTTP/1.1

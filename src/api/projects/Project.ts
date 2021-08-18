@@ -4,7 +4,8 @@ export interface Project {
   startDate: Date;
   endDate?: Date;
   budget: number;
-  status: string;
+  status: ProjectStatus;
   id: string;
   ownerId?: string;
 }
+export type ProjectStatus = 'planned' | 'active' | 'delayed' | 'canceled';

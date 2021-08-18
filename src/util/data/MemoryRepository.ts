@@ -25,7 +25,7 @@ export abstract class MemoryRepository<T> implements Repository<T> {
     const index = this.collection.findIndex(x => this.isEqualKey(x, id));
     if (index >= 0) {
       const current: T = this.collection[index];
-      const updated = { current, ...toUpdate } as unknown;
+      const updated = { ...current, ...toUpdate } as unknown;
       this.collection[index] = updated as T;
       return this.collection[index];
     } else {

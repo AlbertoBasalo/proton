@@ -1,8 +1,15 @@
 
-GET http://localhost:3000/v1/users/credentials HTTP/1.1
+GET http://localhost:3000/v1/users/credentials?email=admin%40world.org&password=S3cr3t HTTP/1.1
 content-type: application/json
 
-{
-    "email": "admin@world.org",
-    "password": "S3cr3t!"
-}
+# {
+#     "email": "admin@world.org",
+#     "password": "S3cr3t"
+# }
+
+
+###
+
+get http://localhost:3000/v1/users HTTP/1.1
+content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IndvcmxkX2FkbWluIiwic3RrIjoiMTYyODU5MjIxMzk1OSIsImlhdCI6MTYyODU5MjIxM30.QmbQwfmu0wLRczQEm0OcEcuS9gPV1M7G9Um8L4laYkE

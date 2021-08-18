@@ -22,6 +22,7 @@ export function getUserById(
   if (isForbidden(req, fakeTargetToCheckOwnership)) {
     return sendForbidden(res);
   }
+  // ToDo: remove password from response
   getById(req, res, next, repository);
 }
 
@@ -31,7 +32,11 @@ export async function getUserSessionByCredentials(
   next: express.NextFunction
 ): Promise<void> {
   try {
-    const credentials = req.body;
+    const credentials = {
+      email: decodeURIComponent(req.query.email as string),
+      password: decodeURIComponent(req.query.password as string),
+    };
+    console.log('[users.controller.ts] getUserSessionByCredentials:', credentials);
     const userSessionToken = await validateUser(credentials);
     if (userSessionToken) {
       sendSuccess(res, userSessionToken);

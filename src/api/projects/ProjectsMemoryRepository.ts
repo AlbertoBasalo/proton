@@ -20,7 +20,7 @@ export class ProjectsMemoryRepository extends MemoryRepository<Project> {
         description: 'Establish a civilization on Mars',
         startDate: new Date(2022, 0, 1),
         budget: 99000,
-        status: 'plan',
+        status: 'planned',
         ownerId: 'world_admin',
       },
     ];

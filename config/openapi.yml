@@ -352,6 +352,19 @@ paths:
     get:
       description: Gets a User session by credentials
       operationId: getUserSessionByCredentials
+      parameters:
+        - in: query
+          name: email
+          required: true
+          schema:
+            type: string
+          description: User Email
+        - in: query
+          name: password
+          required: true
+          schema:
+            type: string
+          description: User Password
       responses:
         200:
           $ref: '#/components/responses/200'

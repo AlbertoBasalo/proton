@@ -8,7 +8,7 @@ export class UsersMemoryRepository extends MemoryRepository<User> {
         id: 'world_admin',
         name: 'World Admin',
         email: 'admin@world.org',
-        password: 'S3cr3t!',
+        password: 'S3cr3t',
       },
     ];
 

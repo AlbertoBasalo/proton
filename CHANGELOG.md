@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/AtomicBuilders/proton/compare/v2.3.0...v2.4.0) (2021-08-18)
+
+
+### Features
+
+* users and credentials ([eff26d2](https://github.com/AtomicBuilders/proton/commit/eff26d282a73fe337d46cc7d55020ed1b29e3100))
+
 ## [2.3.0](https://github.com/AtomicBuilders/proton/compare/v2.2.3...v2.3.0) (2021-08-16)
 
 

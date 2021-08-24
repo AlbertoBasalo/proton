@@ -15,7 +15,7 @@ export class TaksMemoryRepository extends MemoryRepository<Task> {
       {
         id: 'deploy_the_virus',
         name: 'Deploy the virus',
-        description: 'Release the virus to the evironment on a cute pet',
+        description: 'Release the virus to the environment on a cute pet',
         done: true,
         projectId: 'rule_the_world',
         ownerId: 'world_admin',

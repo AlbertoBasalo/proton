@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.1](https://github.com/AtomicBuilders/proton/compare/v2.4.0...v2.4.1) (2021-10-28)
+
+
+### Bug Fixes
+
+* generate id based on name ([43cab2c](https://github.com/AtomicBuilders/proton/commit/43cab2cde531bdbc16aa07288ccc52b62974cdca))
+* minnor typo ([45ffd9d](https://github.com/AtomicBuilders/proton/commit/45ffd9db7b4dd68acf76421a4c07154bf9375743))
+
 ## [2.4.0](https://github.com/AtomicBuilders/proton/compare/v2.3.0...v2.4.0) (2021-08-18)
 
 

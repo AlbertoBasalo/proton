@@ -61,7 +61,7 @@ export function setId(req, target: object) {
   const id = target['id'];
   if (!!id) return;
   if (!!target['name']) {
-    target['id'] = (target['name'] as string).toLocaleLowerCase().replace(' ', '');
+    target['id'] = (target['name'] as string).toLocaleLowerCase().replace('  ', ' ').replace(' ', '_');
   } else {
     target['id'] = new Date().getTime().toLocaleString();
   }

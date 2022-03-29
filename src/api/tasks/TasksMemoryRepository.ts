@@ -1,7 +1,7 @@
 import { MemoryRepository } from '../../util/data/MemoryRepository';
 import { Task } from './Task';
 
-export class TaksMemoryRepository extends MemoryRepository<Task> {
+export class TasksMemoryRepository extends MemoryRepository<Task> {
   constructor() {
     const collection: Task[] = [
       {
@@ -21,9 +21,25 @@ export class TaksMemoryRepository extends MemoryRepository<Task> {
         ownerId: 'world_admin',
       },
       {
+        id: 'start_a-war',
+        name: 'Start a war',
+        description: 'Start a war against the world',
+        done: false,
+        projectId: 'rule_the_world',
+        ownerId: 'world_admin',
+      },
+      {
         id: 'have_a_rocket',
         name: 'Have a rocket',
-        description: 'A very big rocket ',
+        description: 'A very big and powerful rocket',
+        done: true,
+        projectId: 'conquer_mars',
+        ownerId: 'world_admin',
+      },
+      {
+        id: 'have_a_spaceship',
+        name: 'Have a spaceship',
+        description: 'A modern spaceship',
         done: false,
         projectId: 'conquer_mars',
         ownerId: 'world_admin',

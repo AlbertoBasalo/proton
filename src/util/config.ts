@@ -49,12 +49,6 @@ export const emailConfig = {
   senderEmail: process.env.EMAIL_SENDER_EMAIL || 'sender@gmail.com',
 };
 
-export const mongoConfig = {
-  connect: process.env.MONGO_CONNECT || false,
-  uri: process.env.MONGO_URI || '',
-  db: process.env.MONGO_DB || 'proton',
-};
-
 export const rootConfig: RootConfig = {
   environment: process.env.NODE_ENV,
   isProduction: process.env.NODE_ENV === 'production',

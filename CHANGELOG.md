@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/AtomicBuilders/proton/compare/v2.4.2...v3.0.0) (2022-03-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove mongo repository
+
+### Features
+
+* remove mongo repository ([b2cdb7e](https://github.com/AtomicBuilders/proton/commit/b2cdb7e708e4b978e584570fe29a720fe7a9c80c))
+
 ### [2.4.2](https://github.com/AtomicBuilders/proton/compare/v2.4.1...v2.4.2) (2021-10-28)
 
 ### [2.4.1](https://github.com/AtomicBuilders/proton/compare/v2.4.0...v2.4.1) (2021-10-28)

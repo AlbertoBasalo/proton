@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/AtomicBuilders/proton/compare/v3.0.0...v3.1.0) (2022-03-29)
+
+
+### Features
+
+* data for world admin projects ([97fb09a](https://github.com/AtomicBuilders/proton/commit/97fb09a7d88cdb1612630ffee549544738b9413f))
+
 ## [3.0.0](https://github.com/AtomicBuilders/proton/compare/v2.4.2...v3.0.0) (2022-03-29)
 
 

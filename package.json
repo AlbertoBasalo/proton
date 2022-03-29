@@ -1,7 +1,7 @@
 {
   "name": "proton",
-  "version": "3.0.0",
-  "description": "PROfessional Typescript bOilerplate",
+  "version": "3.1.0",
+  "description": "REST API boilerplate with Express",
   "author": {
     "name": "Alberto Basalo",
     "email": "albertobasalo@hotmail.com",
